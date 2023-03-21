@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+import _ from 'lodash';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -151,14 +152,15 @@ const ZeroDte = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
+  const [ticker, setTicker] = useState('SPY');
+  const [chartIndex, setChartIndex] = useState(0);
+  const [activeChart, setActiveChart] = useState(null);
   const [data, setData] = useState(null);
   const [marketDate, setMarketDate] = useState(null);
   const [spotPrice, setSpotPrice] = useState(null);
   const [period, setPeriod] = useState(null);
-  const [ticker, setTicker] = useState('SPY');
-  const [chartIndex, setChartIndex] = useState(0);
-  const [activeChart, setActiveChart] = useState(null);
   const [contracts, setContracts] = useState(['calls', 'puts']);
+  const [chartXAxis, setChartXAxis] = useState('number');
   const [dataError, setDataError] = useState(false);
   const [dataAlert, setDataAlert] = useState(false);
   const [marketClosed, setMarketClosed] = useState(false);
@@ -169,7 +171,6 @@ const ZeroDte = () => {
     const fetchData = async () => {
       try {
         const response = await api.get(`api/zero_dte/get/${ticker}`);
-        //console.log(response.data);
         if (!response.data){
           setLoading(false);
           setMarketClosed(true);
@@ -202,9 +203,18 @@ const ZeroDte = () => {
   }, [ticker, dataError]);
 
 
-  useEffect(() => {
-  	setActiveChart(chartConfigOptions.at(chartIndex));
+  const handleActiveChart = useMemo(() => {
+    setActiveChart(_.find(chartConfigOptions, {'id': chartIndex}));
   }, [chartIndex]);
+
+
+  const handleTickerXAxis = useMemo(() => {
+    if (ticker === '$SPX') {
+      setChartXAxis('category');
+    } else {
+      setChartXAxis('number');
+    }
+  }, [ticker]);
 
 
   const handleDataAlert = () => {
@@ -376,7 +386,8 @@ const ZeroDte = () => {
                     data={data}
                     spotPrice={spotPrice}
                     activeChart={activeChart} 
-                    contracts={contracts} 
+                    contracts={contracts}
+                    chartXAxis={chartXAxis}
                   />
                 </Box>
               : 

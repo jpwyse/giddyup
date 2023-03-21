@@ -14,7 +14,7 @@ import {
 } from "recharts";
 
 
-const ZeroDteChart = ({ data, spotPrice, activeChart, contracts, ...props }) => {
+const ZeroDteChart = ({ data, spotPrice, activeChart, contracts, chartXAxis, ...props }) => {
   let config = activeChart;
 
   return (
@@ -25,7 +25,7 @@ const ZeroDteChart = ({ data, spotPrice, activeChart, contracts, ...props }) => 
             <Legend verticalAlign="top" iconType='diamond' iconSize={0} height={40} wrapperStyle={{ lineHeight: '1.5', marginLeft: 40 }} />
             <CartesianGrid stroke="#838996" />
             <Tooltip offset={40} cursor={{ stroke: '#FFDEAD', fill: 'rgba(255, 222, 173, 0.5)', strokeWidth: 1 }} />
-            <XAxis dataKey="strikePrice" type="number" scale="auto" domain={['dataMin', 'dataMax']} tickCount={50} tickMargin={6} tickSize={4} height={60} tick={{ stroke: '#F8F8FF', strokeWidth: 1.25 }} tickLine={{ stroke: '#F8F8FF', strokeWidth: 1.5 }}>
+            <XAxis dataKey="strikePrice" type={chartXAxis} scale="auto" domain={['dataMin', 'dataMax']} tickCount={50} tickMargin={6} tickSize={4} height={60} tick={{ stroke: '#F8F8FF', strokeWidth: 1.25 }} tickLine={{ stroke: '#F8F8FF', strokeWidth: 1.5 }}>
               <Label value="STRIKE PRICES" offset={15} position="insideBottom" />
             </XAxis>
             <YAxis type="number" scale="sqrt" domain={[`dataMin - ${config?.domain}`, `dataMax + ${config?.domain}`]} interval="preserveStartEnd" orientation="left" tickCount={10} tickMargin={6} tickSize={4} tick={{ stroke: '#F8F8FF',  strokeWidth: 1.5 }} tickLine={{ stroke: '#F8F8FF', strokeWidth: 1.5 }} label={{ value: config?.title,  position: 'insideBottom', angle: -90, offset: 150 }} />
