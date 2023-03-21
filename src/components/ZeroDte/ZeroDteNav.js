@@ -36,7 +36,7 @@ const ZeroDteNav = ({chartConfigOptions, ticker, setTicker, marketDate, period, 
 
   return (
     <React.Fragment>
-      <AppBar position="static" sx={{ width: '75%', mx: "auto", height: 110, zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: '#2D3436', boxShadow: 'rgba(245, 245, 245, 0.25) 0px 3px 8px;', border: '2px solid #838996' }}>
+      <AppBar position="static" sx={{ width: '80%', mx: "auto", height: 110, zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: '#2D3436', boxShadow: 'rgba(245, 245, 245, 0.25) 0px 3px 8px;', border: '2px solid #838996' }}>
         <Toolbar sx={{ mt: 1 }}>
           <Grid container spacing={0}>
             <Stack direction='row' divider={<Divider orientation="vertical" flexItem sx={{ bgcolor: '#F8F8FF' }} />} alignItems='center' justifyContent='center' spacing={6} sx={{ my: 1 }}>

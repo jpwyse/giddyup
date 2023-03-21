@@ -170,7 +170,7 @@ const Dashboard = () => {
 
   const guestDash = (
     <React.Fragment>
-      <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.25', mt: open ? 30 : 95 }} />
+      <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.25', mt: open ? 20 : 80 }} />
       <Stack direction="column" alignItems="center" justifyContent="center" spacing={0}>
         <ListItemButton alignItems='center' onClick={() => navigate("../login")} onMouseOver={() => setHoverLink("login")} onMouseLeave={() => setHoverLink(null)} sx={{ position: 'fixed', bottom: open ? 165 : 70, "&:hover": {transform: 'scale(1.05)'} }}>
           <Stack direction="column" alignItems="center">
@@ -195,7 +195,7 @@ const Dashboard = () => {
 
   const userDash = (
     <React.Fragment>
-      <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.25', mt: open ? 30 : 95 }} />
+      <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.25', mt: open ? 20 : 80 }} />
       <Stack direction="column" alignItems="center" justifyContent="center" spacing={0}>
         <ListItemButton alignItems='center' onClick={() => navigate("../dashboard/account")} onMouseOver={() => setHoverLink("account")} onMouseLeave={() => setHoverLink(null)} sx={{ position: 'fixed', bottom: open ? 165 : 70, "&:hover": {transform: 'scale(1.05)'} }}>
           <Stack direction="column" alignItems="center" justifyContent="center">
