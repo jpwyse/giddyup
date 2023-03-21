@@ -170,7 +170,7 @@ const Dashboard = () => {
 
   const guestDash = (
     <React.Fragment>
-      <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.25', mt: open ? 20 : 80 }} />
+      <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.25', mt: open ? 15 : 80 }} />
       <Stack direction="column" alignItems="center" justifyContent="center" spacing={0}>
         <ListItemButton alignItems='center' onClick={() => navigate("../login")} onMouseOver={() => setHoverLink("login")} onMouseLeave={() => setHoverLink(null)} sx={{ position: 'fixed', bottom: open ? 165 : 70, "&:hover": {transform: 'scale(1.05)'} }}>
           <Stack direction="column" alignItems="center">
@@ -195,7 +195,7 @@ const Dashboard = () => {
 
   const userDash = (
     <React.Fragment>
-      <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.25', mt: open ? 20 : 80 }} />
+      <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.25', mt: open ? 15 : 80 }} />
       <Stack direction="column" alignItems="center" justifyContent="center" spacing={0}>
         <ListItemButton alignItems='center' onClick={() => navigate("../dashboard/account")} onMouseOver={() => setHoverLink("account")} onMouseLeave={() => setHoverLink(null)} sx={{ position: 'fixed', bottom: open ? 165 : 70, "&:hover": {transform: 'scale(1.05)'} }}>
           <Stack direction="column" alignItems="center" justifyContent="center">
@@ -331,10 +331,7 @@ const Dashboard = () => {
               {open ? <GiddyIconSideBar /> : null}
             </ListItemIcon>
           </Stack>
-          
-          
-            {!isAuth ? userDash : guestDash }
-          
+          {isAuth ? userDash : guestDash }
           <ListItemButton alignItems='center' sx={{ mt: 'calc(10% + 60px)', position: 'fixed', bottom: 0, width: open ? drawerWidth : 65, borderTop: open ? '1px solid rgba(248, 248, 255, 0.25)' : null }}>
             <ListItemText sx={{ ml: 6 }}>
               <Typography sx={{ font: '20px Aldrich', fontWeight: 'bold', color: '#F8F8FF', lineHeight: '1.5', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', "&:hover": { color: '#A8E4A0' } }}>

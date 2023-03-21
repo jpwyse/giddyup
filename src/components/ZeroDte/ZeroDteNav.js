@@ -41,7 +41,7 @@ const ZeroDteNav = ({chartConfigOptions, ticker, setTicker, marketDate, period, 
           <Grid container spacing={0}>
             <Stack direction='row' divider={<Divider orientation="vertical" flexItem sx={{ bgcolor: '#F8F8FF' }} />} alignItems='center' justifyContent='center' spacing={6} sx={{ my: 1 }}>
               <Grid item xs={2}>
-                <Typography sx={{ font: '36px Aldrich', fontWeight: 'bold', color: '#A8E4A0', textShadow: '2px 3px 4px rgba(245,245,245,0.5)', ml: 2, mt: 0.25 }} >
+                <Typography sx={{ font: '36px Aldrich', fontWeight: 'bold', color: '#A8E4A0', textShadow: '2px 3px 4px rgba(245,245,245,0.5)', ml: 2, mr: -1, mt: 0.25 }} >
                   0DTE
                 </Typography>
               </Grid>
