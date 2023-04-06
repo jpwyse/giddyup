@@ -12,7 +12,7 @@ const Contact = () => {
     <React.Fragment>
       <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
       <CssBaseline />
-      <Container disableGutters maxWidth="md" component="main" sx={{ my: 4, pt: 8, pb: 6 }}>
+      <Container disableGutters maxWidth="md" component="main" sx={{ mt: 20, pt: 8, pb: 6 }}>
         <Typography align="center" sx={{ font: '128px Aldrich', fontWeight: 'bold', color: '#8884D8', textShadow: '2px 4px 4px rgba(245,245,245,0.5)', mb: 6 }}>
           Contact
         </Typography>

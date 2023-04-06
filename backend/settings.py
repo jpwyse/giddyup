@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'Users',
     'ZeroDte',
+    'CorrCov',
 ]
 
 MIDDLEWARE = [

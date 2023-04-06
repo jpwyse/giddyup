@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 import { logout } from '../redux/actions/auth';
@@ -44,6 +44,10 @@ import OptionsIcon from '../design/icons/OptionsIcon';
 import OptionsIconActive from '../design/icons/OptionsIconActive';
 import ZeroDteIcon from '../design/icons/ZeroDteIcon';
 import ZeroDteIconActive from '../design/icons/ZeroDteIconActive';
+import StatsIcon from '../design/icons/StatsIcon';
+import StatsIconActive from '../design/icons/StatsIconActive';
+import CorrCovIcon from '../design/icons/CorrCovIcon';
+import CorrCovIconActive from '../design/icons/CorrCovIconActive';
 import '@fontsource/vt323';
 import '@fontsource/aldrich';
 
@@ -70,7 +74,6 @@ const closedMixin = (theme: Theme): CSSObject => ({
     width: `calc(${theme.spacing(8)} + 1px)`,
   },
 });
-
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -117,13 +120,17 @@ const Dashboard = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [logoutAlert, setLogoutAlert] = useState(false);
   const [open, setOpen] = useState(true);
-  const [expanded, setExpanded] = useState(["options"]);
-  const [selected, setSelected] = useState("zerodte");
+  const [expanded, setExpanded] = useState(["options", "stats"]);
+  const [selected, setSelected] = useState();
   const [hoverLink, setHoverLink] = useState(null);
 
-  useEffect(() => {
+
+  const handleSelectedPage = useMemo(() => {
     if (location?.pathname === "/dashboard/zerodte") {
       setSelected("zerodte");
+    } 
+    if (location?.pathname === "/dashboard/corrcov") {
+      setSelected("corrcov");
     } 
     if (location?.pathname === "/dashboard/account") {
       setSelected("account");
@@ -170,50 +177,52 @@ const Dashboard = () => {
 
   const guestDash = (
     <React.Fragment>
-      <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.25', mt: open ? 15 : 80 }} />
-      <Stack direction="column" alignItems="center" justifyContent="center" spacing={0}>
-        <ListItemButton alignItems='center' onClick={() => navigate("../login")} onMouseOver={() => setHoverLink("login")} onMouseLeave={() => setHoverLink(null)} sx={{ position: 'fixed', bottom: open ? 165 : 70, "&:hover": {transform: 'scale(1.05)'} }}>
-          <Stack direction="column" alignItems="center">
-            {hoverLink === "login" ? <LoginIconActive /> : <LoginIcon />}
-            <Typography hidden={!open} sx={{ font: '17px Aldrich', fontWeight: 'bold', color: hoverLink === "login" ? '#A8E4A0' : '#F8F8FF', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', pt: 0.25 }}>
-              LOGIN
-            </Typography>
-         </Stack> 
-        </ListItemButton>
-        <ListItemButton alignItems='center' onClick={() => navigate("../signup")} onMouseOver={() => setHoverLink("signup")} onMouseLeave={() => setHoverLink(null)} sx={{ position: 'fixed', bottom: open ? 70 : 12, "&:hover": {transform: 'scale(1.05)'} }}>
-          <Stack direction="column" alignItems="center">
-            {hoverLink === "signup" ? <SignUpIconActive /> : <SignUpIcon />}
-            <Typography hidden={!open} sx={{ font: '17px Aldrich', fontWeight: 'bold', color: hoverLink === "signup" ? '#A8E4A0' : '#F8F8FF', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', pt: 1 }}>
-              SIGNUP
-            </Typography>
-         </Stack> 
-        </ListItemButton>
-      </Stack>
+      <Box sx={{ flexGrow: 1 }}>
+        <Stack direction="column" alignItems="center" justifyContent="center" spacing={0}>
+          <ListItemButton alignItems='center' onClick={() => navigate("../login")} onMouseOver={() => setHoverLink("login")} onMouseLeave={() => setHoverLink(null)} sx={{ position: 'fixed', bottom: open ? 145 : 70, "&:hover": {transform: 'scale(1.05)'} }}>
+            <Stack direction="column" alignItems="center">
+              {hoverLink === "login" ? <LoginIconActive /> : <LoginIcon />}
+              <Typography hidden={!open} sx={{ font: '16px Aldrich', fontWeight: 'bold', color: hoverLink === "login" ? '#A8E4A0' : '#F8F8FF', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', pt: 0.25 }}>
+                LOGIN
+              </Typography>
+           </Stack> 
+          </ListItemButton>
+          <ListItemButton alignItems='center' onClick={() => navigate("../signup")} onMouseOver={() => setHoverLink("signup")} onMouseLeave={() => setHoverLink(null)} sx={{ position: 'fixed', bottom: open ? 60 : 12, "&:hover": {transform: 'scale(1.05)'} }}>
+            <Stack direction="column" alignItems="center">
+              {hoverLink === "signup" ? <SignUpIconActive /> : <SignUpIcon />}
+              <Typography hidden={!open} sx={{ font: '16px Aldrich', fontWeight: 'bold', color: hoverLink === "signup" ? '#A8E4A0' : '#F8F8FF', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', pt: 1 }}>
+                SIGNUP
+              </Typography>
+           </Stack> 
+          </ListItemButton>
+        </Stack>
+      </Box>
     </React.Fragment>
   );
 
 
   const userDash = (
     <React.Fragment>
-      <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.25', mt: open ? 15 : 80 }} />
-      <Stack direction="column" alignItems="center" justifyContent="center" spacing={0}>
-        <ListItemButton alignItems='center' onClick={() => navigate("../dashboard/account")} onMouseOver={() => setHoverLink("account")} onMouseLeave={() => setHoverLink(null)} sx={{ position: 'fixed', bottom: open ? 165 : 70, "&:hover": {transform: 'scale(1.05)'} }}>
-          <Stack direction="column" alignItems="center" justifyContent="center">
-            {hoverLink === "account" ? <AccountIconActive /> : <AccountIcon />}
-            <Typography hidden={!open} sx={{ font: '17px Aldrich', fontWeight: 'bold', color: hoverLink === "account" ? '#A8E4A0' : '#F8F8FF', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', pt: 0.25 }}>
-              {user?.username}
-            </Typography>
-          </Stack> 
-        </ListItemButton>
-        <ListItemButton onClick={() => setLogoutAlert(true)} onMouseOver={() => setHoverLink("logout")} onMouseLeave={() => setHoverLink(null)} alignItems='center' sx={{ position: 'fixed', bottom: open ? 70 : 10, "&:hover": {transform: 'scale(1.05)'} }}>
-          <Stack direction="column" alignItems="center" justifyContent="center">
-            {hoverLink === "logout" ? <LogoutIconActive /> : <LogoutIcon />}
-            <Typography hidden={!open} sx={{ font: '17px Aldrich', fontWeight: 'bold', color: hoverLink === "logout" ? '#A8E4A0' : '#F8F8FF', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', pt: 0.25 }}>
-              LOGOUT
-            </Typography>
-         </Stack> 
-        </ListItemButton>
-      </Stack>
+      <Box sx={{ flexGrow: 1 }}>
+        <Stack direction="column" alignItems="center" justifyContent="center" spacing={0}>
+          <ListItemButton alignItems='center' onClick={() => navigate("../dashboard/account")} onMouseOver={() => setHoverLink("account")} onMouseLeave={() => setHoverLink(null)} sx={{ position: 'fixed', bottom: open ? 145 : 70, "&:hover": {transform: 'scale(1.05)'} }}>
+            <Stack direction="column" alignItems="center" justifyContent="center">
+              {hoverLink === "account" ? <AccountIconActive /> : <AccountIcon />}
+              <Typography hidden={!open} sx={{ font: '17px Aldrich', fontWeight: 'bold', color: hoverLink === "account" ? '#A8E4A0' : '#F8F8FF', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', pt: 0.25 }}>
+                {user?.username}
+              </Typography>
+            </Stack> 
+          </ListItemButton>
+          <ListItemButton onClick={() => setLogoutAlert(true)} onMouseOver={() => setHoverLink("logout")} onMouseLeave={() => setHoverLink(null)} alignItems='center' sx={{ position: 'fixed', bottom: open ? 60 : 10, "&:hover": {transform: 'scale(1.05)'} }}>
+            <Stack direction="column" alignItems="center" justifyContent="center">
+              {hoverLink === "logout" ? <LogoutIconActive /> : <LogoutIcon />}
+              <Typography hidden={!open} sx={{ font: '17px Aldrich', fontWeight: 'bold', color: hoverLink === "logout" ? '#A8E4A0' : '#F8F8FF', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', pt: 0.25 }}>
+                LOGOUT
+              </Typography>
+           </Stack> 
+          </ListItemButton>
+        </Stack>
+      </Box>
     </React.Fragment>
   );
 
@@ -318,8 +327,37 @@ const Dashboard = () => {
                   {selected === 'zerodte' || hoverLink === 'zerodte' ? <ZeroDteIconActive /> : <ZeroDteIcon /> }
                 </ListItemIcon>
                 <ListItemText>
-                  <Typography hidden={!open} sx={{ font: '18px Aldrich', fontWeight: 'bold', color: selected === 'zerodte' || hoverLink === 'zerodte' ? '#A8E4A0' : '#F8F8FF', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', ml: -1.5, pt: 0.5, transform: hoverLink === '0dte' ?'scale(1.05)' : null }}>
+                  <Typography hidden={!open} sx={{ font: '18px Aldrich', fontWeight: 'bold', color: selected === 'zerodte' || hoverLink === 'zerodte' ? '#A8E4A0' : '#F8F8FF', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', ml: -1.5, pt: 0.5, transform: hoverLink === 'zerodte' ?'scale(1.05)' : null }}>
                     0DTE
+                  </Typography>
+                </ListItemText>
+              </ListItemButton>
+            </List>
+          </Collapse>
+          <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.5' }} />
+          <ListItemButton onClick={(event) => handleExpanded(event, 'stats')} onMouseOver={() => setHoverLink("stats")} onMouseLeave={() => setHoverLink(null)} sx={{ ml: open ? -1 : -0.5 }} >
+            <ListItemIcon sx={{ "&:hover": !open ? {transform: 'scale(1.1)'} : null }}>
+              {hoverLink === 'stats' ? <StatsIconActive/> : <StatsIcon />}
+            </ListItemIcon>
+            { open ? 
+              <ListItemText>
+                <Typography sx={{ font: '20px Aldrich', fontWeight: 'bold', color: hoverLink === 'stats' ? '#A8E4A0' : '#F8F8FF', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', ml: -0.5, pt: 1 }}>
+                  STATS
+                </Typography>
+              </ListItemText>
+            : null }
+            {expanded.includes('stats') ? <ExpandLess sx={{ color: hoverLink === 'stats' ? '#A8E4A0' : '#F8F8FF' }} /> : <ExpandMore sx={{ color: hoverLink === 'stats' ? '#A8E4A0' : '#F8F8FF' }} />}
+          </ListItemButton>
+          <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.25' }} />
+          <Collapse in={expanded.includes('stats')} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding  sx={{ bgcolor: selected === "corrcov" ? '#1B1B1B' : null, transform: hoverLink === 'corrcov' ? 'scale(1.02)' : null }}>
+              <ListItemButton selected={selected === 'corrcov'} onClick={() => navigate("../dashboard/corrcov")} onMouseOver={() => setHoverLink("corrcov")} onMouseLeave={() => setHoverLink(null)} sx={{ pl: 2 }}>
+                <ListItemIcon sx={{ ml: -0.5 }}>
+                  {selected === 'corrcov' || hoverLink === 'corrcov' ? <CorrCovIconActive /> : <CorrCovIcon /> }
+                </ListItemIcon>
+                <ListItemText>
+                  <Typography hidden={!open} sx={{ font: '18px Aldrich', fontWeight: 'bold', color: selected === 'corrcov' || hoverLink === 'corrcov' ? '#A8E4A0' : '#F8F8FF', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', ml: -1, pt: 0.5, transform: hoverLink === 'corrcov' ?'scale(1.05)' : null }}>
+                    CORR-COV
                   </Typography>
                 </ListItemText>
               </ListItemButton>
@@ -341,9 +379,9 @@ const Dashboard = () => {
           </ListItemButton>
         </List>
       </Drawer>
-      <Box component="main" sx={{ width: '90vw', overflow: 'hidden', flexWrap: 'nowrap', p: 5, mx: "auto" }}>
+      <Box component="main" sx={{ width: open ? '90vw' : '95vw', flexWrap: 'nowrap', p: 2, mx: "auto" }}>
         <Grid container spacing={3}>
-          <Grid item xs={12}>
+          <Grid item xs={12} sx={{ mb: 5 }}>
             <Outlet />
           </Grid>
         </Grid>

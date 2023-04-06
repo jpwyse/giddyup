@@ -24,12 +24,12 @@ const Loading = () => {
     <React.Fragment>
       <Container maxWidth="xl">
         <animated.div style={loadLogo}>
-          <Typography align='center' gutterBottom sx={{ mt: 5, ml: -10 }}>
+          <Typography align='center' gutterBottom sx={{ mt: 10, ml: -10 }}>
             <GiddyIconLoading sx={{  zIndex: 5, position: 'static' }} />
           </Typography>
         </animated.div>
         <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="center" alignItems="center" spacing={2} sx={{ mx: "auto" }}>
-          <Typography align="center" sx={{ font: '150px vt323', color: '#8884D8', textShadow: '5px 7px 0px rgba(0, 0, 0, 0.5)', textTransform: 'uppercase'}}>
+          <Typography align="center" sx={{ font: '165px vt323', color: '#8884D8', textShadow: '5px 7px 0px rgba(0, 0, 0, 0.5)', textTransform: 'uppercase'}}>
             LOADING
           </Typography>
           <div>

@@ -2,6 +2,7 @@ import React from "react";
 import MainLayout from '../layouts/MainLayout';
 import Dashboard from '../pages/Dashboard';
 import ZeroDte from '../pages/ZeroDte';
+import CorrCov from '../pages/CorrCov';
 import Login from '../pages/Login';
 import SignUp from '../pages/SignUp';
 import Account from '../pages/Account';
@@ -19,6 +20,7 @@ const routes = () => [
         element: <Dashboard />, 
         children : [
           { path: 'zerodte', element: <ZeroDte /> },
+          { path: 'corrcov', element: <CorrCov /> },
           { path: 'account', element: <Account /> },
         ],
       },
