@@ -1,4 +1,5 @@
 import React from "react";
+import DashboardLayout from '../layouts/DashboardLayout';
 import MainLayout from '../layouts/MainLayout';
 import Dashboard from '../pages/Dashboard';
 import ZeroDte from '../pages/ZeroDte';
@@ -13,7 +14,7 @@ import NotFound from '../pages/NotFound';
 const routes = () => [
   { 
     path: "/",
-    element: <MainLayout />,
+    element: <DashboardLayout />,
     children: [
       { 
         path: "dashboard", 
@@ -24,12 +25,20 @@ const routes = () => [
           { path: 'account', element: <Account /> },
         ],
       },
+      { path: '*', element: <NotFound /> },
+    ],
+  },
+  { 
+    path: "/site",
+    element: <MainLayout />,
+    children: [
       { path: 'login', element: <Login /> },
       { path: 'signup', element: <SignUp /> },
       { path: 'contact', element: <Contact /> },
       { path: '*', element: <NotFound /> },
     ],
   },
+  { path: '*', element: <NotFound /> },
 ];
 
 

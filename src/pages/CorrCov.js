@@ -257,7 +257,7 @@ const CorrCov = () => {
             </Grid>
             <Grid item xs={12}>
               { !marketClosed ?
-                <Box sx={{ height: '80vh', mb: 20 }}>
+                <Box sx={{ height: '80%' }}>
                   <CorrCovChart 
                     data={data}
                     ticker1={ticker1} 
@@ -296,7 +296,7 @@ const dataMsg = (
       ALERT:
     </Typography>
     <Typography sx={{ font: '26px Aldrich', fontWeight: 'bold', color: '#F8F8FF', lineHeight: 1.25, mb: 2 }}>
-      Data currently being displayed is an <u>day behind</u> live market data.
+      Data currently being displayed is a <u>day behind</u> live market data.
     </Typography>
     <Typography sx={{ font: '26px Aldrich', fontWeight: 'bold', color: '#F8F8FF', lineHeight: 1.25 }}>
       To view live market data please login or sign-up.

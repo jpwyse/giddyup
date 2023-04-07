@@ -46,10 +46,10 @@ const CorrCovNav = ({ ticker1, setTicker1, ticker2, setTicker2, period, setPerio
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ width: '85%', mx: "auto", height: 110, zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: '#2D3436', boxShadow: 'rgba(245, 245, 245, 0.25) 0px 3px 8px;', border: '2px solid #838996' }}>
+      <AppBar position="static" sx={{ width: '95%', mx: "auto", height: 110, zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: '#2D3436', boxShadow: 'rgba(245, 245, 245, 0.25) 0px 3px 8px;', border: '2px solid #838996' }}>
         <Toolbar sx={{ mt: 1 }}>
           <Grid container direction="row" justifyContent="space-between" spacing={0}>
-            <Stack direction='row' divider={<Divider orientation="vertical" flexItem sx={{ bgcolor: '#F8F8FF' }} />} alignItems='center' justifyContent='center' spacing={{ xs: 4, md: 6, lg: 8 }} sx={{ my: 1 }}>
+            <Stack direction='row' divider={<Divider orientation="vertical" flexItem sx={{ bgcolor: '#F8F8FF' }} />} alignItems='center' justifyContent='center' spacing={{ xs: 4, md: 6, lg: 10 }} sx={{ my: 1 }}>
               <Grid item xs={2}>
                 <Typography noWrap sx={{ font: '36px Aldrich', fontWeight: 'bold', color: '#F8F8FF', textShadow: '2px 3px 4px rgba(245,245,245,0.5)', mr: -4, mt: 0.25 }} >
                   Corr-Cov

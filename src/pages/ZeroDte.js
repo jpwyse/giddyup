@@ -171,6 +171,7 @@ const ZeroDte = () => {
     const fetchData = async () => {
       try {
         const response = await api.get(`api/zero_dte/get/${ticker}`);
+        console.log(response.data);
         if (!response.data){
           setLoading(false);
           setMarketClosed(true);
@@ -363,7 +364,7 @@ const ZeroDte = () => {
     } else {
       return (
         <React.Fragment>
-          <Grid container spacing={4}>
+          <Grid container spacing={3}>
             {dataNotice}
             <Grid item xs={12}>
               <ZeroDteNav 
@@ -405,9 +406,9 @@ const ZeroDte = () => {
   };
 
 
-	return (
-		renderPage()
-	);
+  return (
+    renderPage()
+  );
 };
 
 
