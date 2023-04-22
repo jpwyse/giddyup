@@ -21,26 +21,14 @@ def get_zero_dte(request, symbol: str):
 		asset_type = 'stocks'
 		quote_ticker = '^GSPC'
 
-	zero = ZeroDteData(symbol=symbol, asset_type=asset_type, quote_ticker=quote_ticker)
 	try:
-		market_open = zero.check_market_open()
-		if market_open:
-			expiry_date = zero.check_front_expiration_date()
-			if expiry_date:
-				try:
-					df, spot, period = zero.get_zero_dte_data()
-					df = df.round(4)
-					data = df.to_dict(orient='index')
-					return {'data': data, 'date': expiry_date, 'spot_price': spot, 'period': period}
-				except Exception as error:
-					print(error)
-					raise HttpError(417, "Error retrieving ticker 0dte data.")
-			else:
-				return False
-				#Here is where we would pull the saved data from db and return it
-		else:
-			return False
+		zero = ZeroDteData(symbol=symbol, asset_type=asset_type, quote_ticker=quote_ticker)
 	except Exception as error:
 		print(error)
 		raise HttpError(417, "Error retrieving ticker 0dte data.")
-
+	else:
+		data = zero.data
+		expiry_date = zero.front_expiration
+		spot = zero.spot_price
+		period = zero.period
+		return {'data': data, 'date': expiry_date, 'spot_price': spot, 'period': period}

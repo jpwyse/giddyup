@@ -67,11 +67,15 @@ class ZeroDteData(BarchartAPI):
 		self.symbol = symbol
 		self.asset_type = asset_type
 		self.quote_ticker = quote_ticker
+		self.period = 'weekly'
 
 		self.request_url = 'https://www.barchart.com/{}/quotes/{}/options'.format(self.asset_type, self.symbol)
 		self.response_url = 'https://www.barchart.com/proxies/core-api/v1/options/get'
+		self.options_fields = 'strikePrice,volume,openInterest,volumeOpenInterestRatio,volatility,optionType'
+		self.greeks_fields = 'strikePrice,theoretical,delta,gamma,rho,theta,vega,optionType,'
 
-		self.options_params = {
+		
+		self.derivs_params = {
 			'baseSymbol': self.symbol,
 			'fields': None,
 			'groupBy': 'optionType',
@@ -81,15 +85,26 @@ class ZeroDteData(BarchartAPI):
 			'orderDir': 'asc',
 			'raw': None
 		}
+
+		self.front_expiration = self.getFrontExpiration()
+		self.spot_price = self.getSpotPrice(ticker=self.quote_ticker)
 		
-		self.options_fields = 'strikePrice,volume,openInterest,volumeOpenInterestRatio,volatility,optionType'
-		self.greeks_fields = 'strikePrice,theoretical,delta,gamma,rho,theta,vega,optionType,'
-		self.front_expiration = None
-		self.period = None
+		self.options_data = self.getDerivativesData(fields=self.options_fields, data_type='options')
+		self.greeks_data = self.getDerivativesData(fields=self.greeks_fields, data_type='greeks')
+		self.zero_dte_dataframe = pd.concat([self.options_data, self.greeks_data], axis=1)
 
+		self.call_dataframe = self.zero_dte_dataframe.loc[('Call', slice(None)), :]
+		self.put_dataframe = self.zero_dte_dataframe.loc[('Put', slice(None)), :]
 
-	def return_data(self, fields, expiration_date):
-		params = self.options_params
+		self.calls_data = self.getChartData(dataframe=self.call_dataframe, contract='call')
+		self.puts_data = self.getChartData(dataframe=self.put_dataframe, contract='put')
+
+		self.dataframe = self.getChartDataTotals(calls=self.calls_data, puts=self.puts_data)
+		self.data = self.dataframe.to_dict(orient='index')
+
+		
+	def requestData(self, fields, expiration_date='nearest'):
+		params = self.derivs_params
 		params['fields'] = fields
 		params['expirationDate'] = expiration_date
 
@@ -116,52 +131,23 @@ class ZeroDteData(BarchartAPI):
 			return response
 
 
-	def get_spot_price(self):
-		ticker = yf.Ticker(self.quote_ticker)
+	def getSpotPrice(self, ticker):
+		ticker = yf.Ticker(ticker)
 		price = ticker.history(period='1d')
-		spot_price = price['Close'][0]
+		spot = price['Close'][0]
+		spot_price = spot.round(4)
 		return spot_price
 
-	def check_market_open(self):
-		start = date.today() - timedelta(days=3)
-		end = date.today() + timedelta(days=5)
-		nyse = mcal.get_calendar('NYSE')
-		market_dates = nyse.schedule(start_date=start, end_date=end)
 
-		if self.today in market_dates.index:
-			return True
-		else:
-			return False
+	def getFrontExpiration(self):
+		json = self.requestData(fields=self.options_fields)
+		expirys = json['meta']['expirations']
+		expirations = list(itertools.chain(*expirys.values()))
+		front_expiration = expirations[0]
+		return front_expiration
 
 
-	def check_front_expiration_date(self):
-		json = self.return_data(fields=self.options_fields, expiration_date=self.today)
-		if json['data']:
-			self.front_expiration = self.today
-			return self.today
-		else:
-			json = self.return_data(fields=self.options_fields, expiration_date=self.next_day)
-			if json['data']:
-				self.front_expiration = self.next_day
-				return self.next_day
-			else:
-				return False
-
-
-	def confirm_front_expiration_date(self):
-		periods = ['weekly', 'monthly']
-		for period in periods:
-			json = self.return_data(fields=self.options_fields, expiration_date="nearest")
-			expiry = json['meta']['expirations'][period][0]
-			if expiry == self.front_expiration:
-				self.period = period
-				return True
-			else:
-				print(f"No expirations for {self.symbol} match today's data.")
-				return False
-
-
-	def clean_data(self, data):
+	def cleanData(self, data):
 		dataframes = []
 		for opt_type in data.keys():
 			df = pd.json_normalize(data, record_path=opt_type)
@@ -177,19 +163,19 @@ class ZeroDteData(BarchartAPI):
 		return df
 
 
-	def get_derivatives_data(self, data_type, fields):
+	def getDerivativesData(self, data_type, fields):
 		print(f"Getting {data_type} data for {self.symbol}.")
-		json = self.return_data(fields=fields, expiration_date=self.front_expiration)
+		json = self.requestData(fields=fields, expiration_date=self.front_expiration)
 		data = json['data']
 		if isinstance(data, dict):
-			df = self.clean_data(data=data)
+			df = self.cleanData(data=data)
 			return df
 		else:
 			print(f"Error with {data_type} data json response - did not return a dictionary.")
 			return data
 		
 
-	def get_chart_data(self, dataframe, contract, spot_price):
+	def getChartData(self, dataframe, contract):
 		df = dataframe
 		cols = df.columns.tolist()
 		for col in cols:
@@ -200,40 +186,19 @@ class ZeroDteData(BarchartAPI):
 		else:
 			k = -1
 
-		df[f"{contract}Gamma$"] = df[f"{contract}Openinterest"] * df[f"{contract}Gamma"] * 100 * spot_price * k
-		df[f"{contract}Gamma%"] = df[f"{contract}Openinterest"] * df[f"{contract}Gamma"] * 100 * (spot_price ** 2) * 0.01 * k
+		df[f"{contract}Gamma$"] = df[f"{contract}Openinterest"] * df[f"{contract}Gamma"] * 100 * self.spot_price * k
+		df[f"{contract}Gamma%"] = df[f"{contract}Openinterest"] * df[f"{contract}Gamma"] * 100 * (self.spot_price ** 2) * 0.01 * k
 		df = df.reset_index()
+		df['strikePrice'] = pd.to_numeric(df['strikePrice'])
 		return df
 
 
-	def get_chart_data_totals(self, calls, puts):
+	def getChartDataTotals(self, calls, puts):
 		df = pd.concat([calls, puts], axis=1)
 		df['totalGamma$'] = df['callGamma$'] + df['putGamma$']
 		df['totalGamma%'] = df['callGamma%'] + df['putGamma%']
-		#df = df.reset_index()
+		df = df.T.drop_duplicates().T
+		df = df.round(4)
 		return df
 
-
-	def get_zero_dte_data(self):
-		expiry_confirm = self.confirm_front_expiration_date()
-		if expiry_confirm is True:
-			options = self.get_derivatives_data(data_type='options', fields=self.options_fields)
-			greeks = self.get_derivatives_data(data_type='greeks', fields=self.greeks_fields)
-			dataframe = pd.concat([options, greeks], axis=1)
-			
-			call_df = dataframe.loc[('Call', slice(None)), :]
-			put_df = dataframe.loc[('Put', slice(None)), :]
-			spot_price = self.get_spot_price()
-			calls = self.get_chart_data(dataframe=call_df, contract='call', spot_price=spot_price)
-			puts = self.get_chart_data(dataframe=put_df, contract='put', spot_price=spot_price)
-			
-			df = self.get_chart_data_totals(calls=calls, puts=puts)
-			df = df.T.drop_duplicates().T
-			
-			df['strikePrice'] = pd.to_numeric(df['strikePrice'])
-			start_strike = float(df['strikePrice'].iloc[0] + 50)
-			end_strike = float(df['strikePrice'].iloc[-1] - 50)
-			spot = spot_price.round(4)
-
-			return df, spot, self.period
 

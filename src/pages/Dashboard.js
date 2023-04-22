@@ -68,6 +68,32 @@ const Dashboard = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = useState(true);
   const [logoutAlert, setLogoutAlert] = useState(false);
+  const [smallScreen, setSmallScreen] = useState(false);
+  const [windowSize, setWindowSize] = useState([
+    window.innerWidth,
+    window.innerHeight,
+  ]);
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowSize([window.innerWidth, window.innerHeight]);
+    };
+    window.addEventListener('resize', handleWindowResize);
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (windowSize[0] < 600) {
+      setSmallScreen(true);
+      setOpen(false);
+    } else {
+      setSmallScreen(false);
+      setOpen(null);
+    }
+  }, [windowSize]);
+
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -156,9 +182,10 @@ const Dashboard = () => {
         <CssBaseline />
         <NavBar 
           open={open} 
-          toggleDrawer={toggleDrawer} 
+          toggleDrawer={toggleDrawer}
+          smallScreen={smallScreen}
         />
-        <Drawer variant="permanent" open={open}>
+        <Drawer variant="permanent" open={!smallScreen ? open : false}>
           <Toolbar />
           <List component="nav">
             <SideBar 
@@ -179,7 +206,7 @@ const Dashboard = () => {
           }}
         >
           <Toolbar />
-          <Container maxWidth="false" sx={{ mt: 4, mb: 6 }}>
+          <Container maxWidth="false" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Box sx={{ p: 0, display: 'flex', flexDirection: 'column' }}>

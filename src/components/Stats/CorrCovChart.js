@@ -22,7 +22,7 @@ const CorrCovChart = ({ data, ticker1, ticker2, stat, statColor, ...props }) => 
 
   return (
     <React.Fragment>
-      <div style={{ height: 750, background: '#1B1B1B', border: '3px solid #838996' }}>
+      <div style={{ height: '75%', background: '#1B1B1B', border: '3px solid #838996' }}>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart syncId="syncId" data={data} margin={{ top: 15, right: 15, left: 25, bottom: 20 }}>
             <Legend verticalAlign="top" iconType='diamond' iconSize={0} height={40} wrapperStyle={{ lineHeight: '1.5' }} />

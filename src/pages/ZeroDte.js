@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import _ from 'lodash';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -147,6 +149,7 @@ const chartConfigOptions = [
 
 
 const ZeroDte = () => {
+  const theme = useTheme();
   const isAuth = useSelector(state => state.auth.isAuth);
   const user = useSelector(state => state.auth.user);
   const navigate = useNavigate();

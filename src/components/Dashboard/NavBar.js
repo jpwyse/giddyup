@@ -15,7 +15,7 @@ import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 
-const NavBar = ({open, toggleDrawer, ...props}) => {
+const NavBar = ({open, toggleDrawer, smallScreen, ...props}) => {
   const isAuth = useSelector(state => state.auth.isAuth);
   const user = useSelector(state => state.auth.user);
   const navigate = useNavigate();
@@ -93,7 +93,7 @@ const NavBar = ({open, toggleDrawer, ...props}) => {
     <React.Fragment>
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, background: 'linear-gradient(15deg, #2D3436 0%, #000000 74%);' }}>
         <Toolbar sx={{ mt: 0.5, pr: 24 }}>
-          <IconButton edge="start" onClick={toggleDrawer} sx={{ mr: 2, ml: -2.5 }}>             
+          <IconButton disabled={smallScreen} edge="start" onClick={toggleDrawer} sx={{ mr: 2, ml: -2.5 }}>             
             { open ? <MenuOpenIcon sx={{ color: '#8884D8', height: 35, width: 35, "&:hover": {transform: 'scale(1.1)'} }} /> : <MenuIcon sx={{ color: '#8884D8', height: 35, width: 35, "&:hover": {transform: 'scale(1.1)'} }} /> }
           </IconButton>
           <Typography sx={{ flexGrow: 1, font: { xs: '34px Aldrich', md: '36px Aldrich' }, fontWeight: { xs: 'bold', md: 'bold' }, color: '#8884D8', textShadow: '2px 3px 4px rgba(245,245,245,0.5)', background: 'none', boxShadow: 'none', border: 'none' }} >
