@@ -19,7 +19,7 @@ import Select from '@mui/material/Select';
 import Divider from '@mui/material/Divider';
 
 
-const CorrCovNav = ({ ticker1, setTicker1, ticker2, setTicker2, period, setPeriod, window, setWindow, chartDisplay, setChartDisplay, splitChart, setSplitChart, ...props }) => {
+const CovNav = ({ ticker1, setTicker1, ticker2, setTicker2, period, setPeriod, window, setWindow, chartDisplay, setChartDisplay, splitChart, setSplitChart, ...props }) => {
   
   const handleTicker = (event) => {
     if (event.target.name === 'ticker1') {
@@ -47,14 +47,12 @@ const CorrCovNav = ({ ticker1, setTicker1, ticker2, setTicker2, period, setPerio
     }
   };
 
-
   const windows = [...Array(31).keys()].slice(3);
-
 
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: { xs: 'column', md: 'row' },  maxWidth: 1650, py: 2,  mx: "auto", justifyContent: 'space-evenly', alignItems: 'center',  zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: '#2D3436', boxShadow: 'rgba(245, 245, 245, 0.25) 0px 3px 8px;', border: '2px solid #838996'  }}>
       <Typography noWrap sx={{ font: '36px Aldrich', fontWeight: 'bold', color: '#F8F8FF', textShadow: '2px 3px 4px rgba(245,245,245,0.5)', ml: -2, mt: 0.25 }} >
-        Corr-Cov
+        Covariance
       </Typography>
       <Divider orientation="vertical" variant="middle" flexItem sx={{ bgcolor: '#F8F8FF' }} />      
       <FormControl margin='none' sx={{ minWidth: 120 }} size="small">
@@ -125,7 +123,7 @@ const CorrCovNav = ({ ticker1, setTicker1, ticker2, setTicker2, period, setPerio
         <Typography sx={{ font: '22px Aldrich', fontWeight: 'bold', color: '#F8F8FF', textShadow: '2px 3px 4px rgba(245,245,245,0.5)' }}>
           Split Chart:
         </Typography>
-        <Radio
+        <Checkbox
           checked={splitChart}
           onChange={() => setSplitChart(!splitChart)}
           sx={{
@@ -140,7 +138,7 @@ const CorrCovNav = ({ ticker1, setTicker1, ticker2, setTicker2, period, setPerio
   );
 };
 
-export default CorrCovNav;
+export default CovNav;
 
 
 const ticker1Label = (
@@ -157,7 +155,7 @@ const ticker2Label = (
 
 const statLabel = (
   <Typography sx={{ font: '20px Aldrich', fontWeight: 'bold', color: '#966FD6', textShadow: '1px 1px 2px rgba(245,245,245,0.5)', pt: 0.5 }} >
-    Correlation
+    Covariance
   </Typography>
 );
 

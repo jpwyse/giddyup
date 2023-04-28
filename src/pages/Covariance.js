@@ -15,14 +15,13 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import api from '../axios/api';
 import Loading from '../pages/Loading';
-import CorrCovNav from '../components/Stats/CorrCovNav';
-import CorrCovChart from '../components/Stats/CorrCovChart';
+import CovNav from '../components/Stats/CovNav';
+import CovChart from '../components/Stats/CovChart';
 import '@fontsource/vt323';
 import '@fontsource/aldrich';
 
 
-
-const CorrCov = () => {
+const Covariance = () => {
   const isAuth = useSelector(state => state.auth.isAuth);
   const user = useSelector(state => state.auth.user);
   const navigate = useNavigate();
@@ -33,10 +32,7 @@ const CorrCov = () => {
   const [period, setPeriod] = useState('2y');
   const [interval, setInterval] = useState('1d');
   const [window, setWindow] = useState(3);
-  const [stat, setStat] = useState('Correlation');
-  const [statColor, setStatColor] = useState(null);
-  const [splitChart, setSplitChart] = useState(false);
-  const [chartDisplay, setChartDisplay] = useState(['ticker1', 'correlation']);
+  const [splitChart, setSplitChart] = useState(true);
   const [data, setData] = useState(null);
   const [dataError, setDataError] = useState(false);
   const [dataAlert, setDataAlert] = useState(false);
@@ -55,7 +51,6 @@ const CorrCov = () => {
             period: period,
             interval: interval,
             window: window,
-            stat: stat,
           },
         });
         if (!response.data){
@@ -84,16 +79,8 @@ const CorrCov = () => {
         setLoading(false);
       }
     }, 1000);
-  }, [ticker1, ticker2, period, interval, window, stat, dataError]);
+  }, [ticker1, ticker2, period, interval, window, dataError]);
 
-
-  const handleChartStatColor = useMemo(() => {
-    if (stat === 'Correlation') {
-      setStatColor('#966FD6');
-    } else {
-      setStatColor('#FFB347');
-    }
-  }, [stat]);
 
   const handleDataAlert = () => {
     setDataAlert(false);
@@ -244,7 +231,7 @@ const CorrCov = () => {
           <Grid container spacing={3}>
             {dataNotice}
             <Grid item xs={12}>
-              <CorrCovNav 
+              <CovNav 
                 ticker1={ticker1} 
                 setTicker1={setTicker1}
                 ticker2={ticker2} 
@@ -253,8 +240,6 @@ const CorrCov = () => {
                 setPeriod={setPeriod}
                 window={window}
                 setWindow={setWindow}
-                chartDisplay={chartDisplay}
-                setChartDisplay={setChartDisplay}
                 splitChart={splitChart}
                 setSplitChart={setSplitChart}
               />
@@ -262,12 +247,11 @@ const CorrCov = () => {
             <Grid item xs={12}>
               { !marketClosed ?
                 <Box sx={{ height: '80%' }}>
-                  <CorrCovChart 
+                  <CovChart 
                     data={data}
                     ticker1={ticker1} 
                     ticker2={ticker2}
                     splitChart={splitChart}
-                    
                   />
                 </Box>
               : 
@@ -285,13 +269,13 @@ const CorrCov = () => {
   };
 
 
-	return (
-		renderPage()
-	);
+  return (
+    renderPage()
+  );
 };
 
 
-export default CorrCov;
+export default Covariance;
 
 
 const dataMsg = (

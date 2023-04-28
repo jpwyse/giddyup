@@ -30,7 +30,15 @@ import StatsIcon from '../../design/icons/StatsIcon';
 import StatsIconActive from '../../design/icons/StatsIconActive';
 import CorrCovIcon from '../../design/icons/CorrCovIcon';
 import CorrCovIconActive from '../../design/icons/CorrCovIconActive';
-import DashboardIcon from '@mui/icons-material/Dashboard';
+import CorrIcon from '../../design/icons/CorrIcon';
+import CorrIconActive from '../../design/icons/CorrIconActive';
+import CovIcon from '../../design/icons/CovIcon';
+import CovIconActive from '../../design/icons/CovIconActive';
+import VolatilityIcon from '../../design/icons/VolatilityIcon';
+import VolatilityIconActive from '../../design/icons/VolatilityIconActive';
+import VolSpreadIcon from '../../design/icons/VolSpreadIcon';
+import VolSpreadIconActive from '../../design/icons/VolSpreadIconActive';
+
 
 const SideBar = ({open, setOpen, setLogoutAlert, drawerWidth, ...props}) => {
   const isAuth = useSelector(state => state.auth.isAuth);
@@ -45,8 +53,14 @@ const SideBar = ({open, setOpen, setLogoutAlert, drawerWidth, ...props}) => {
     if (location?.pathname === "/dashboard/zerodte") {
       setSelected("zerodte");
     } 
-    if (location?.pathname === "/dashboard/corrcov") {
-      setSelected("corrcov");
+    if (location?.pathname === "/dashboard/correlation") {
+      setSelected("correlation");
+    } 
+    if (location?.pathname === "/dashboard/covariance") {
+      setSelected("covariance");
+    } 
+    if (location?.pathname === "/dashboard/volatility") {
+      setSelected("volatility");
     } 
     if (location?.pathname === "/dashboard/account") {
       setSelected("account");
@@ -109,7 +123,7 @@ const SideBar = ({open, setOpen, setLogoutAlert, drawerWidth, ...props}) => {
               </ListItemIcon>
               <ListItemText>
                 <Typography hidden={!open} sx={{ font: '20px Aldrich', fontWeight: 'bold', color: hoverLink === "account" ? '#A8E4A0' : '#8884D8', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', mt: -0.5 }}>
-                  jpwyse
+                  {user?.username}
                 </Typography>
               </ListItemText>
             </Stack>
@@ -176,14 +190,54 @@ const SideBar = ({open, setOpen, setLogoutAlert, drawerWidth, ...props}) => {
       </ListItemButton>
       <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.25' }} />
       <Collapse in={true} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding  sx={{ bgcolor: selected === "corrcov" ? '#1B1B1B' : null, transform: hoverLink === 'corrcov' ? 'scale(1.02)' : null }}>
-          <ListItemButton selected={selected === 'corrcov'} onClick={() => navigate("../dashboard/corrcov")} onMouseOver={() => setHoverLink("corrcov")} onMouseLeave={() => setHoverLink(null)} sx={{ pl: open ? 2 : 1.5 }}>
+        <List component="div" disablePadding  sx={{ bgcolor: selected === "correlation" ? '#1B1B1B' : null, transform: hoverLink === 'correlation' ? 'scale(1.02)' : null }}>
+          <ListItemButton selected={selected === 'correlation'} onClick={() => navigate("../dashboard/correlation")} onMouseOver={() => setHoverLink("correlation")} onMouseLeave={() => setHoverLink(null)} sx={{ pl: open ? 2 : 1.5 }}>
             <ListItemIcon>
-              {selected === 'corrcov' || hoverLink === 'corrcov' ? <CorrCovIconActive /> : <CorrCovIcon /> }
+              {selected === 'correlation' || hoverLink === 'correlation' ? <CorrIconActive /> : <CorrIcon /> }
             </ListItemIcon>
             <ListItemText>
-              <Typography hidden={!open} sx={{ font: '18px Aldrich', fontWeight: 'bold', color: selected === 'corrcov' || hoverLink === 'corrcov' ? '#A8E4A0' : '#8884D8', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', transform: hoverLink === 'corrcov' ?'scale(1.05)' : null, ml: -0.5 }}>
-                CORR-COV
+              <Typography hidden={!open} sx={{ font: '18px Aldrich', fontWeight: 'bold', color: selected === 'correlation' || hoverLink === 'correlation' ? '#A8E4A0' : '#8884D8', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', transform: hoverLink === 'correlation' ?'scale(1.05)' : null, ml: -0.5 }}>
+                CORRELATION
+              </Typography>
+            </ListItemText>
+          </ListItemButton>
+          <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.25' }} />
+          <ListItemButton selected={selected === 'covariance'} onClick={() => navigate("../dashboard/covariance")} onMouseOver={() => setHoverLink("covariance")} onMouseLeave={() => setHoverLink(null)} sx={{ pl: open ? 2 : 1.5 }}>
+            <ListItemIcon>
+              {selected === 'covariance' || hoverLink === 'covariance' ? <CovIconActive /> : <CovIcon /> }
+            </ListItemIcon>
+            <ListItemText>
+              <Typography hidden={!open} sx={{ font: '18px Aldrich', fontWeight: 'bold', color: selected === 'covariance' || hoverLink === 'covariance' ? '#A8E4A0' : '#8884D8', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', transform: hoverLink === 'covariance' ?'scale(1.05)' : null, ml: -0.5 }}>
+                COVARIANCE
+              </Typography>
+            </ListItemText>
+          </ListItemButton>
+        </List>
+      </Collapse>
+      <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.5' }} />
+      <ListItemButton disabled onClick={handleExpanded} onMouseOver={() => setHoverLink("volatility")} onMouseLeave={() => setHoverLink(null)}>
+        <ListItemIcon sx={{ "&:hover": !open ? {transform: 'scale(1.1)'} : null, ml: open ? -1 : -0.75 }}>
+          {hoverLink === 'volatility' ? <VolatilityIconActive /> : <VolatilityIcon />}
+        </ListItemIcon>
+        { open ? 
+          <ListItemText>
+            <Typography sx={{ font: '20px Aldrich', fontWeight: 'bold', color: hoverLink === 'volatility' ? '#A8E4A0' : '#F8F8FF', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', pt: 1 }}>
+              Volatility
+            </Typography>
+          </ListItemText>
+        : null }
+        <ExpandMore sx={{ color: hoverLink === 'volatility' ? '#A8E4A0' : '#F8F8FF', mt: 0.5 }} />
+      </ListItemButton>
+      <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.25' }} />
+      <Collapse in={false} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding  sx={{ bgcolor: selected === "volspread" ? '#1B1B1B' : null, transform: hoverLink === 'volspread' ? 'scale(1.02)' : null }}>
+          <ListItemButton disabled selected={selected === 'volspread'} onClick={() => navigate("../dashboard/volspread")} onMouseOver={() => setHoverLink("volspread")} onMouseLeave={() => setHoverLink(null)} sx={{ pl: open ? 2 : 1.5 }}>
+            <ListItemIcon>
+              {selected === 'volspread' || hoverLink === 'volspread' ? <VolSpreadIconActive /> : <VolSpreadIcon /> }
+            </ListItemIcon>
+            <ListItemText>
+              <Typography hidden={!open} sx={{ font: '18px Aldrich', fontWeight: 'bold', color: selected === 'volspread' || hoverLink === 'volspread' ? '#A8E4A0' : '#8884D8', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', transform: hoverLink === 'corrcov' ?'scale(1.05)' : null, ml: -0.5 }}>
+                Spread
               </Typography>
             </ListItemText>
           </ListItemButton>

@@ -19,7 +19,7 @@ import {
 } from "recharts";
 
 
-const CorrCovChart = ({ data, ticker1, ticker2, splitChart, ...props }) => {
+const CovChart = ({ data, ticker1, ticker2, splitChart, ...props }) => {
 
   return (
     <React.Fragment>
@@ -33,13 +33,13 @@ const CorrCovChart = ({ data, ticker1, ticker2, splitChart, ...props }) => {
               <Label value="DATE" offset={15} position="insideBottom" />
             </XAxis>
             <YAxis yAxisId="left" orientation="left" type="number" domain={['auto', 'auto']} tickCount={10} tickMargin={6} tickSize={4} tick={{ stroke: '#F8F8FF',  strokeWidth: 1.5 }} tickLine={{ stroke: '#F8F8FF', strokeWidth: 1.5 }} label={{ value: 'PRICE ($)', position: 'left', angle: -90, offset: 0 }} />
-            <YAxis yAxisId="right" orientation="right" type="number" domain={['auto', 'auto']} tickCount={splitChart ? 10 : 20} tickMargin={6} tickSize={4} tick={{ stroke: '#F8F8FF',  strokeWidth: 1.5 }} tickLine={{ stroke: '#F8F8FF', strokeWidth: 1.5 }} label={{ value: splitChart ? 'PRICE ($)' : 'CORRELATION', position: 'right', angle: -90, offset: 0 }} />
+            <YAxis yAxisId="right" orientation="right" type="number" domain={['auto', 'auto']} tickCount={splitChart ? 10 : 20} tickMargin={6} tickSize={4} tick={{ stroke: '#F8F8FF',  strokeWidth: 1.5 }} tickLine={{ stroke: '#F8F8FF', strokeWidth: 1.5 }} label={{ value: splitChart ? 'PRICE ($)' : 'Covariance', position: 'right', angle: -90, offset: 0 }} />
             <Line yAxisId="left" name={`${ticker1}`} dataKey={ticker1} type="monotone" stroke="#82CA9D" dot={false} />
             {splitChart ?
               <Line yAxisId={splitChart ? "right" : "left"} name={`${ticker2}`} dataKey={ticker2} type="monotone" stroke="#FF6961" dot={false} />
             : null}
             {!splitChart ?
-              <Area yAxisId="right" name="Correlation" dataKey="Correlation" type="monotone" stroke="#966FD6" fillOpacity={0.3} fill="#966FD6" />
+              <Area yAxisId="right" name="Covariance" dataKey="Covariance" type="monotone" stroke="#966FD6" fillOpacity={0.3} fill="#966FD6" />
             : null}
             <Brush dataKey="Date" travellerWidth={10} height={45} stroke="#414A4C" fill="#F2F3F4" />
           </ComposedChart>
@@ -73,4 +73,4 @@ const CorrCovChart = ({ data, ticker1, ticker2, splitChart, ...props }) => {
 };
 
 
-export default CorrCovChart;
+export default CovChart;

@@ -34,7 +34,7 @@ class CorrCov():
 		df['Date'] = df['Date'].dt.date
 		df = df.set_index(['Date'])
 		df['Correlation'] = (df[self.ticker1].rolling(window=window).corr(df[self.ticker2], pairwise=True))
-		df['Covariance'] = df[self.ticker1].rolling(window=window).cov(df[self.ticker2], pairwise=True)
+		df['Covariance'] = df[self.ticker1].rolling(window=window).cov(df[self.ticker2], pairwise=True) * -1
 		df[f"{self.ticker1}PctChange"] = df[self.ticker1].pct_change().mul(100)
 		df[f"{self.ticker2}PctChange"] = df[self.ticker2].pct_change().mul(100)
 		

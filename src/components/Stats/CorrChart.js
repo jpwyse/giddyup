@@ -19,7 +19,7 @@ import {
 } from "recharts";
 
 
-const CorrCovChart = ({ data, ticker1, ticker2, splitChart, ...props }) => {
+const CorrChart = ({ data, ticker1, ticker2, splitChart, ...props }) => {
 
   return (
     <React.Fragment>
@@ -73,4 +73,4 @@ const CorrCovChart = ({ data, ticker1, ticker2, splitChart, ...props }) => {
 };
 
 
-export default CorrCovChart;
+export default CorrChart;

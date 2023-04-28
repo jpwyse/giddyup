@@ -37,7 +37,7 @@ const ZeroDteChart = ({ data, spotPrice, activeChart, contracts, chartXAxis, ...
             {contracts.includes("puts") ? 
               <Bar name={config?.label2} dataKey={config?.data2} fill="#4C6293" />
             : null}
-            <Brush dataKey="strikePrice" travellerWidth={10} height={45} stroke="#A8E4A0" fill="#8884D8" />
+            <Brush dataKey="strikePrice" travellerWidth={10} height={45} stroke="#414A4C" fill="#F2F3F4" />
           </BarChart>
         </ResponsiveContainer>
       </div>
