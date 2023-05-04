@@ -60,9 +60,9 @@ const CovNav = ({ ticker1, setTicker1, ticker2, setTicker2, period, setPeriod, w
   };
 
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: { xs: 'column', md: 'row' },  maxWidth: 1680, height: 100, py: 1,  mx: "auto", justifyContent: 'space-evenly', alignItems: 'center',  zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: '#2D3436', boxShadow: 'rgba(245, 245, 245, 0.25) 0px 3px 8px;', border: '2px solid #838996'  }}>
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: { xs: 'column', md: 'row' }, maxWidth: 1680, height: { md: 100 }, py: 1, mx: "auto", justifyContent: 'space-evenly', alignItems: 'center',  zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: '#2D3436', boxShadow: 'rgba(245, 245, 245, 0.25) 0px 3px 8px;', border: '2px solid #838996'  }}>
       <Typography noWrap sx={{ font: '36px Aldrich', fontWeight: 'bold', color: '#F8F8FF', textShadow: '2px 3px 4px rgba(245,245,245,0.5)', ml: -2, mt: 0.25 }} >
-        Covariance (Inv.)
+        Covariance
       </Typography>
       <Divider orientation="vertical" variant="middle" flexItem sx={{ bgcolor: '#F8F8FF' }} />      
       <FormControl margin='none' sx={{ minWidth: 120 }} size="small">
@@ -107,7 +107,7 @@ const CovNav = ({ ticker1, setTicker1, ticker2, setTicker2, period, setPeriod, w
       <Divider orientation="vertical" variant="middle" flexItem sx={{ bgcolor: '#F8F8FF' }} />
       <FormControl margin='none' sx={{ minWidth: 120 }} size="small">
         <Stack direction='column' alignItems='flex-start' justifyContent='flex-start' spacing={0} sx={{ mt: -1, mx: -2 }}>
-          <FormHelperText sx={{ font: '13px Aldrich', fontWeight: 'bold', color: '#F8F8FF', ml: 0, pb: 1  }}>Date Range</FormHelperText>
+          <FormHelperText sx={{ font: '13px Aldrich', fontWeight: 'bold', color: '#F8F8FF', ml: 0, pb: 1  }}>Period</FormHelperText>
           <Select name="period" value={period} onChange={handlePeriod} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#8884D8', width: 150, height: 50, pt: 1, border: '1px solid #8884D8', '.MuiSelect-iconOutlined': {color: '#8884D8'} }} >
             <MenuItem value={'1mo'} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#8884D8' }}>
               1M
@@ -144,7 +144,7 @@ const CovNav = ({ ticker1, setTicker1, ticker2, setTicker2, period, setPeriod, w
         </Stack>
       </FormControl>
       <Divider orientation="vertical" variant="middle" flexItem sx={{ bgcolor: '#F8F8FF' }} />   
-      <Stack direction="column" alignItems="center" justifyContent="flex-start" spacing={1} sx={{ m: -2 }}>
+      <Stack direction="column" alignItems="center" justifyContent="flex-start" spacing={0} sx={{ m: { md: -2 } }}>
         <Typography sx={{ font: '22px Aldrich', fontWeight: 'bold', color: '#F8F8FF', textShadow: '2px 3px 4px rgba(245,245,245,0.5)' }}>
           Split Chart:
         </Typography>

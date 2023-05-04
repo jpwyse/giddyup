@@ -90,7 +90,7 @@ const NavBar = () => {
   
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ height: 70, zIndex: (theme) => theme.zIndex.drawer + 1, background: 'linear-gradient(15deg, #2D3436 0%, #000000 74%);' }}>
+      <AppBar position="fixed" sx={{ height: 70, zIndex: (theme) => theme.zIndex.drawer + 1, background: '#2D3436' }}>
         <Toolbar sx={{ mt: 1 }}>
           <Typography sx={{ display: 'flex', font: { xs: '34px Aldrich', md: '36px Aldrich' }, fontWeight: { xs: 'bold', md: 'bold' }, color: '#8884D8', textShadow: '2px 3px 4px rgba(245,245,245,0.5)', background: 'none', boxShadow: 'none', border: 'none' }} >
             GiddyUp Analytics

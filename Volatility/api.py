@@ -11,7 +11,6 @@ router = Router()
 
 @router.get("/spread")
 def spread(request, query: VolSpreadSchema = Query(...)):
-	#tickers = ['SVXY', 'UVXY', 'VXZ', '^VIX']
 	tickers = query.tickers
 	if len(tickers) == 1:
 		tickers.append('UVXY')

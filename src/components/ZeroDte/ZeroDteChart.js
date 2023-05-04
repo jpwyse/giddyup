@@ -23,8 +23,8 @@ const ZeroDteChart = ({ data, spotPrice, activeChart, contracts, chartXAxis, ...
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} barSize={10} margin={{ top: 20, right: 25, left: config?.ml, bottom: 20 }}>
             <Legend verticalAlign="top" iconType='diamond' iconSize={0} height={40} wrapperStyle={{ lineHeight: '1.5', marginLeft: 40 }} />
-            <CartesianGrid stroke="#838996" />
-            <Tooltip offset={40} cursor={{ stroke: '#FFDEAD', fill: 'rgba(255, 222, 173, 0.5)', strokeWidth: 1 }} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#838996" />
+            <Tooltip offset={40} cursor={{ stroke: '#F5F5F5', fill: 'rgba(245, 245, 245, 0.5)', strokeWidth: 1 }} />
             <XAxis dataKey="strikePrice" type={chartXAxis} scale="auto" domain={['dataMin', 'dataMax']} tickCount={50} tickMargin={6} tickSize={4} height={60} tick={{ stroke: '#F8F8FF', strokeWidth: 1.25 }} tickLine={{ stroke: '#F8F8FF', strokeWidth: 1.5 }}>
               <Label value="STRIKE PRICES" offset={15} position="insideBottom" />
             </XAxis>

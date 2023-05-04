@@ -246,7 +246,7 @@ const SideBar = ({open, setOpen, setLogoutAlert, drawerWidth, ...props}) => {
       </Collapse>
       <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.5' }} />
       <ListItemButton disabled onClick={handleExpanded}>
-        <ListItemIcon sx={{ ml: open ? -1 : -0.75, transform: hoverLink === "crypto" ? 'scale(1.05)' : null }}>
+        <ListItemIcon sx={{ ml: -1.25, transform: hoverLink === "crypto" ? 'scale(1.05)' : null }}>
           <CryptoIcon />
         </ListItemIcon>
         { open ? 

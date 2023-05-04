@@ -36,8 +36,7 @@ const drawerWidth = 240;
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     '& .MuiDrawer-paper': {
-      
-      background: '#2d3436',
+      background: '#2D3436',
       position: 'relative',
       whiteSpace: 'nowrap',
       width: drawerWidth,
@@ -70,6 +69,7 @@ const Dashboard = () => {
   const [open, setOpen] = useState(true);
   const [logoutAlert, setLogoutAlert] = useState(false);
   const [smallScreen, setSmallScreen] = useState(false);
+  const [smallScreenAlert, setSmallScreenAlert] = useState(false);
   const [windowSize, setWindowSize] = useState([
     window.innerWidth,
     window.innerHeight,
@@ -88,9 +88,11 @@ const Dashboard = () => {
   useEffect(() => {
     if (windowSize[0] < 600) {
       setSmallScreen(true);
+      setSmallScreenAlert(true);
       setOpen(false);
     } else {
       setSmallScreen(false);
+      setSmallScreenAlert(false);
       setOpen(null);
     }
   }, [windowSize]);
@@ -116,6 +118,40 @@ const Dashboard = () => {
       });
     }, 500);
   };
+
+
+  const smallScreenNotice = (
+    <Dialog open={smallScreenAlert} onClose={() => setSmallScreenAlert(false)}>
+      <DialogTitle sx={{ bgcolor: '#2D3436' }}>{smallScreenMsg}</DialogTitle>
+      <DialogActions sx={{ bgcolor: '#2D3436' }}>
+        <Button 
+          variant="contained" 
+          onClick={() => setSmallScreenAlert(false)} 
+          sx={{  
+            font: '20px Aldrich',
+            fontWeight: 'bold',
+            color: '#F8F8FF',
+            textShadow: '2px 3px 4px rgba(0,0,0,0.3)',
+            height: '40px',
+            background: 'none',
+            border: '3px solid #F8F8FF',
+            boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;',
+            pt: 1,
+            '&:hover': { 
+              fontWeight: 'bold',
+              color: '#D0F0C0', 
+              background: 'none',
+              border: '3px solid #D0F0C0',
+              transform: 'scale(1.05)',
+              boxShadow: 'rgba(208, 240, 192, 0.19) 0px 10px 20px, rgba(208, 240, 192, 0.23) 0px 6px 6px;',
+            }
+          }}
+        >
+          OK
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
 
 
   const logoutNotice = (
@@ -179,6 +215,7 @@ const Dashboard = () => {
 
   return (
     <ThemeProvider theme={mdTheme}>
+      {smallScreenNotice}
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <NavBar 
@@ -225,6 +262,16 @@ const Dashboard = () => {
 
 export default Dashboard;
 
+const smallScreenMsg = (
+  <React.Fragment>
+    <Typography sx={{ font: '26px Aldrich', fontWeight: 'bold', color: '#FF6961', lineHeight: 1.25, mb: 2 }}>
+      ALERT:
+    </Typography>
+    <Typography sx={{ font: '26px Aldrich', fontWeight: 'bold', color: '#F8F8FF', lineHeight: 1.25, mb: 2 }}>
+      Dashboard is not yet configured for mobile viewing. To access all dashboard features please view on desktop.
+    </Typography>
+  </React.Fragment>
+);
 
 const logoutMsg = (
   <Typography sx={{ font: '26px Aldrich', fontWeight: 'bold', color: '#F8F8FF' }}>

@@ -28,7 +28,7 @@ const CovChart = ({ data, ticker1, ticker2, splitChart, ...props }) => {
           <ComposedChart syncId="syncId" data={data} margin={{ top: 15, right: 15, left: 25, bottom: 20 }}>
             <Legend verticalAlign="top" iconType='diamond' iconSize={0} height={40} wrapperStyle={{ lineHeight: '1.5' }} />
             <CartesianGrid strokeDasharray="3 3" stroke="#838996" />
-            <Tooltip offset={40} cursor={{ stroke: '#FFDEAD', fill: 'rgba(255, 222, 173, 0.5)', strokeWidth: 1 }} />
+            <Tooltip offset={40} cursor={{ stroke: '#F5F5F5', fill: 'rgba(245, 245, 245, 0.5)', strokeWidth: 1 }} />
             <XAxis dataKey="Date" tickMargin={6} tickSize={4} height={60} tick={{ stroke: '#F8F8FF', strokeWidth: 1.25 }} tickLine={{ stroke: '#F8F8FF', strokeWidth: 1.5 }}>
               <Label value="DATE" offset={15} position="insideBottom" />
             </XAxis>
@@ -39,7 +39,7 @@ const CovChart = ({ data, ticker1, ticker2, splitChart, ...props }) => {
               <Line yAxisId={splitChart ? "right" : "left"} name={`${ticker2}`} dataKey={ticker2} type="monotone" stroke="#FF6961" dot={false} />
             : null}
             {!splitChart ?
-              <Area yAxisId="right" name="Covariance" dataKey="Covariance" type="monotone" stroke="#966FD6" fillOpacity={0.3} fill="#966FD6" />
+              <Area yAxisId="right" name="Covariance" dataKey="Covariance" type="monotone" stroke="#FFBF61" fillOpacity={0.3} fill="#FFBF61" />
             : null}
             <Brush dataKey="Date" travellerWidth={10} height={45} stroke="#414A4C" fill="#F2F3F4" />
           </ComposedChart>
@@ -51,18 +51,18 @@ const CovChart = ({ data, ticker1, ticker2, splitChart, ...props }) => {
             <AreaChart syncId="syncId" data={data} margin={{ top: 10, right: 55, left: 5, bottom: 20 }}>
               <defs>
                 <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#966FD6" stopOpacity={0.9}/>
-                  <stop offset="95%" stopColor="#966FD6" stopOpacity={0}/>
+                  <stop offset="5%" stopColor="#FFDEAD" stopOpacity={0.9} />
+                  <stop offset="95%" stopColor="#FFDEAD" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <Legend verticalAlign="top" iconType='diamond' iconSize={0} height={40} wrapperStyle={{ lineHeight: '1.5' }} />
               <CartesianGrid strokeDasharray="3 3" stroke="#838996" />
-              <Tooltip offset={40} cursor={{ stroke: '#FFDEAD', fill: 'rgba(255, 222, 173, 0.5)', strokeWidth: 1 }} />
+              <Tooltip offset={40} cursor={{ stroke: '#F5F5F5', fill: 'rgba(245, 245, 245, 0.5)', strokeWidth: 1 }} />
               <XAxis dataKey="Date"  tickMargin={6} tickSize={4} height={60} tick={{ stroke: '#F8F8FF', strokeWidth: 1.25 }} tickLine={{ stroke: '#F8F8FF', strokeWidth: 1.5 }}>
                 <Label value="DATE" offset={15} position="insideBottom" />
               </XAxis>
               <YAxis yAxisId="left" orientation="left" tickMargin={6} tickSize={4} tick={{ stroke: '#F8F8FF',  strokeWidth: 1.5 }} tickLine={{ stroke: '#F8F8FF', strokeWidth: 1.5 }} />
-              <Area yAxisId="left" name="Correlation" dataKey="Correlation" type="monotone" stroke="#966FD6" fillOpacity={1} fill="url(#colorPv)" />
+              <Area yAxisId="left" name="Covariance (Inverted)" dataKey="Covariance" type="monotone" stroke="#FFBF61" fillOpacity={1} fill="url(#colorPv)" />
               <Brush dataKey="Date" travellerWidth={10} height={45} stroke="#414A4C" fill="#F5F5F5" />
             </AreaChart>
           </ResponsiveContainer>

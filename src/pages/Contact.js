@@ -12,12 +12,12 @@ const Contact = () => {
     <React.Fragment>
       <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
       <CssBaseline />
-      <Container disableGutters maxWidth="md" component="main" sx={{ mt: 20, pt: 8, pb: 6 }}>
-        <Typography align="center" sx={{ font: '128px Aldrich', fontWeight: 'bold', color: '#8884D8', textShadow: '2px 4px 4px rgba(245,245,245,0.5)', mb: 6 }}>
+      <Container disableGutters maxWidth="md" component="main" sx={{ mt: 5, pt: 8, pb: 6 }}>
+        <Typography align="center" sx={{ font: '128px Aldrich', fontWeight: 'bold', color: '#A8E4A0', textShadow: '2px 4px 4px rgba(245,245,245,0.5)', mb: 6 }}>
           Contact
         </Typography>
-        <Typography component="p" align="center" sx={{ font: '32px Aldrich', fontWeight: 'bold', fontStyle: 'oblique', color: '#8884D8', textShadow: '2px 4px 4px rgba(245,245,245,0.5)', lineHeight: 1.5 }}>
-          ~ giddyup.analytics@gmail.com ~
+        <Typography component="p" align="center" sx={{ font: '36px Aldrich', fontWeight: 'bold', fontStyle: 'oblique', textDecoration: 'underline', color: '#A8E4A0', textShadow: '2px 4px 4px rgba(245,245,245,0.5)', lineHeight: 1.5 }}>
+          giddyup.analytics@gmail.com
         </Typography>
       </Container>
     </React.Fragment>

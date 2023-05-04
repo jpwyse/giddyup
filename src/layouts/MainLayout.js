@@ -4,8 +4,8 @@ import Particles from "react-tsparticles";
 import { Engine } from "tsparticles-engine";
 import { Container as ParticlesContainer } from "tsparticles-engine";
 import { loadFull } from "tsparticles";
-import Box from '@mui/material/Box';
 import particlesConfig from '../design/particles/particlesConfig';
+import Box from '@mui/material/Box';
 import NavBar from '../layouts/NavBar';
 
 const MainLayout = () => {

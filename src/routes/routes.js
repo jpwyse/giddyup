@@ -1,6 +1,7 @@
 import React from "react";
 import DashboardLayout from '../layouts/DashboardLayout';
 import MainLayout from '../layouts/MainLayout';
+import Home from '../pages/Home';
 import Dashboard from '../pages/Dashboard';
 import ZeroDte from '../pages/ZeroDte';
 import CorrCov from '../pages/CorrCov';
@@ -31,17 +32,17 @@ const routes = () => [
           { path: 'account', element: <Account /> },
         ],
       },
-      { path: '*', element: <NotFound /> },
     ],
   },
   { 
     path: "/site",
     element: <MainLayout />,
     children: [
+      { path: 'home', element: <Home /> },
       { path: 'login', element: <Login /> },
       { path: 'signup', element: <SignUp /> },
       { path: 'contact', element: <Contact /> },
-      { path: '*', element: <NotFound /> },
+      
     ],
   },
   { path: '*', element: <NotFound /> },

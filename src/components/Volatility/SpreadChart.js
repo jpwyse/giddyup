@@ -28,7 +28,7 @@ const SpreadChart = ({ data, quant10th, quant25th, quant50th, quant75th, quant90
           <LineChart data={data} margin={{ top: 20, right: 10, left: 15, bottom: 20 }}>
             <Legend verticalAlign="top" iconType='diamond' iconSize={0} height={40} wrapperStyle={{ lineHeight: '1.5', marginLeft: 40 }} />
             <CartesianGrid strokeDasharray="4 4" stroke="#838996" />
-            <Tooltip offset={40} cursor={{ stroke: '#FFDEAD', fill: 'rgba(255, 222, 173, 0.5)', strokeWidth: 1 }} />
+            <Tooltip offset={40} cursor={{ stroke: '#F5F5F5', fill: 'rgba(245, 245, 245, 0.5)', strokeWidth: 1 }} />
             <XAxis dataKey="Date" tickMargin={6} tickSize={4} height={60} tick={{ stroke: '#F8F8FF', strokeWidth: 1.25 }} tickLine={{ stroke: '#F8F8FF', strokeWidth: 1.5 }}>
               <Label value="DATE" offset={15} position="insideBottom" />
             </XAxis>
