@@ -36,7 +36,8 @@ const drawerWidth = 240;
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     '& .MuiDrawer-paper': {
-      background: 'linear-gradient(315deg, #2d3436 0%, #000000 74%);',
+      
+      background: '#2d3436',
       position: 'relative',
       whiteSpace: 'nowrap',
       width: drawerWidth,

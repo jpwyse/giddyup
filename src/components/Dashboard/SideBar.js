@@ -38,6 +38,7 @@ import VolatilityIcon from '../../design/icons/VolatilityIcon';
 import VolatilityIconActive from '../../design/icons/VolatilityIconActive';
 import VolSpreadIcon from '../../design/icons/VolSpreadIcon';
 import VolSpreadIconActive from '../../design/icons/VolSpreadIconActive';
+import CryptoIcon from '../../design/icons/CryptoIcon';
 
 
 const SideBar = ({open, setOpen, setLogoutAlert, drawerWidth, ...props}) => {
@@ -59,8 +60,8 @@ const SideBar = ({open, setOpen, setLogoutAlert, drawerWidth, ...props}) => {
     if (location?.pathname === "/dashboard/covariance") {
       setSelected("covariance");
     } 
-    if (location?.pathname === "/dashboard/volatility") {
-      setSelected("volatility");
+    if (location?.pathname === "/dashboard/spread") {
+      setSelected("volspread");
     } 
     if (location?.pathname === "/dashboard/account") {
       setSelected("account");
@@ -147,17 +148,17 @@ const SideBar = ({open, setOpen, setLogoutAlert, drawerWidth, ...props}) => {
   return (
     <React.Fragment>
       <ListItemButton onClick={handleExpanded} onMouseOver={() => setHoverLink("options")} onMouseLeave={() => setHoverLink(null)}  >
-        <ListItemIcon sx={{ "&:hover": !open ? {transform: 'scale(1.1)'} : null, ml: open ? -1 : -0.75 }}>
-          {hoverLink === 'options' ? <OptionsIconActive/> : <OptionsIcon />}
+        <ListItemIcon sx={{ ml: open ? -1 : -0.75, transform: hoverLink === "options" ? 'scale(1.05)' : null }}>
+          <OptionsIcon />
         </ListItemIcon>
         { open ? 
           <ListItemText>
-            <Typography sx={{ font: '20px Aldrich', fontWeight: 'bold', color: hoverLink === 'options' ? '#A8E4A0' : '#F8F8FF', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', pt: 1 }}>
+            <Typography sx={{ font: '20px Aldrich', fontWeight: 'bold', color: '#F8F8FF', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', pt: 1, transform: hoverLink === "options" ? 'scale(1.05)' : null }}>
               OPTIONS
             </Typography>
           </ListItemText>
         : null }
-        <ExpandMore sx={{ color: hoverLink === 'options' ? '#A8E4A0' : '#F8F8FF', mt: 0.5 }} />
+        <ExpandMore sx={{ color: '#F8F8FF', mt: 0.5 }} />
       </ListItemButton>
       <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.25' }} />
       <Collapse in={true} timeout="auto" unmountOnExit>
@@ -176,17 +177,17 @@ const SideBar = ({open, setOpen, setLogoutAlert, drawerWidth, ...props}) => {
       </Collapse>
       <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.5' }} />
       <ListItemButton onClick={handleExpanded} onMouseOver={() => setHoverLink("stats")} onMouseLeave={() => setHoverLink(null)}>
-        <ListItemIcon sx={{ "&:hover": !open ? {transform: 'scale(1.1)'} : null, ml: open ? -1 : -0.75 }}>
-          {hoverLink === 'stats' ? <StatsIconActive /> : <StatsIcon />}
+        <ListItemIcon sx={{ ml: open ? -1 : -0.75, transform: hoverLink === "stats" ? 'scale(1.05)' : null }}>
+          <StatsIcon />
         </ListItemIcon>
         { open ? 
           <ListItemText>
-            <Typography sx={{ font: '20px Aldrich', fontWeight: 'bold', color: hoverLink === 'stats' ? '#A8E4A0' : '#F8F8FF', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', pt: 1 }}>
+            <Typography sx={{ font: '20px Aldrich', fontWeight: 'bold', color: '#F8F8FF', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', pt: 1, transform: hoverLink === "stats" ? 'scale(1.05)' : null  }}>
               STATS
             </Typography>
           </ListItemText>
         : null }
-        <ExpandMore sx={{ color: hoverLink === 'stats' ? '#A8E4A0' : '#F8F8FF', mt: 0.5 }} />
+        <ExpandMore sx={{ color: '#F8F8FF', mt: 0.5 }} />
       </ListItemButton>
       <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.25' }} />
       <Collapse in={true} timeout="auto" unmountOnExit>
@@ -197,7 +198,7 @@ const SideBar = ({open, setOpen, setLogoutAlert, drawerWidth, ...props}) => {
             </ListItemIcon>
             <ListItemText>
               <Typography hidden={!open} sx={{ font: '18px Aldrich', fontWeight: 'bold', color: selected === 'correlation' || hoverLink === 'correlation' ? '#A8E4A0' : '#8884D8', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', transform: hoverLink === 'correlation' ?'scale(1.05)' : null, ml: -0.5 }}>
-                CORRELATION
+                Correlation
               </Typography>
             </ListItemText>
           </ListItemButton>
@@ -208,51 +209,65 @@ const SideBar = ({open, setOpen, setLogoutAlert, drawerWidth, ...props}) => {
             </ListItemIcon>
             <ListItemText>
               <Typography hidden={!open} sx={{ font: '18px Aldrich', fontWeight: 'bold', color: selected === 'covariance' || hoverLink === 'covariance' ? '#A8E4A0' : '#8884D8', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', transform: hoverLink === 'covariance' ?'scale(1.05)' : null, ml: -0.5 }}>
-                COVARIANCE
+                Covariance
               </Typography>
             </ListItemText>
           </ListItemButton>
         </List>
       </Collapse>
       <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.5' }} />
-      <ListItemButton disabled onClick={handleExpanded} onMouseOver={() => setHoverLink("volatility")} onMouseLeave={() => setHoverLink(null)}>
-        <ListItemIcon sx={{ "&:hover": !open ? {transform: 'scale(1.1)'} : null, ml: open ? -1 : -0.75 }}>
-          {hoverLink === 'volatility' ? <VolatilityIconActive /> : <VolatilityIcon />}
+      <ListItemButton onClick={handleExpanded}>
+        <ListItemIcon sx={{ ml: open ? -1 : -0.75, transform: hoverLink === "volatility" ? 'scale(1.05)' : null }}>
+          <VolatilityIcon />
         </ListItemIcon>
         { open ? 
           <ListItemText>
-            <Typography sx={{ font: '20px Aldrich', fontWeight: 'bold', color: hoverLink === 'volatility' ? '#A8E4A0' : '#F8F8FF', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', pt: 1 }}>
-              Volatility
+            <Typography sx={{ font: '20px Aldrich', fontWeight: 'bold', color: '#F8F8FF', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', pt: 1, transform: hoverLink === "volatility" ? 'scale(1.05)' : null }}>
+              VOLATILITY
             </Typography>
           </ListItemText>
         : null }
-        <ExpandMore sx={{ color: hoverLink === 'volatility' ? '#A8E4A0' : '#F8F8FF', mt: 0.5 }} />
+        <ExpandMore sx={{ color: '#F8F8FF', mt: 0.5 }} />
       </ListItemButton>
       <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.25' }} />
-      <Collapse in={false} timeout="auto" unmountOnExit>
+      <Collapse in={true} timeout="auto" unmountOnExit>
         <List component="div" disablePadding  sx={{ bgcolor: selected === "volspread" ? '#1B1B1B' : null, transform: hoverLink === 'volspread' ? 'scale(1.02)' : null }}>
-          <ListItemButton disabled selected={selected === 'volspread'} onClick={() => navigate("../dashboard/volspread")} onMouseOver={() => setHoverLink("volspread")} onMouseLeave={() => setHoverLink(null)} sx={{ pl: open ? 2 : 1.5 }}>
+          <ListItemButton selected={selected === 'volspread'} onClick={() => navigate("../dashboard/spread")} onMouseOver={() => setHoverLink("volspread")} onMouseLeave={() => setHoverLink(null)} sx={{ pl: open ? 2 : 1.5 }}>
             <ListItemIcon>
               {selected === 'volspread' || hoverLink === 'volspread' ? <VolSpreadIconActive /> : <VolSpreadIcon /> }
             </ListItemIcon>
             <ListItemText>
               <Typography hidden={!open} sx={{ font: '18px Aldrich', fontWeight: 'bold', color: selected === 'volspread' || hoverLink === 'volspread' ? '#A8E4A0' : '#8884D8', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', transform: hoverLink === 'corrcov' ?'scale(1.05)' : null, ml: -0.5 }}>
-                Spread
+                L/S Spread
               </Typography>
             </ListItemText>
           </ListItemButton>
         </List>
       </Collapse>
       <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.5' }} />
+      <ListItemButton disabled onClick={handleExpanded}>
+        <ListItemIcon sx={{ ml: open ? -1 : -0.75, transform: hoverLink === "crypto" ? 'scale(1.05)' : null }}>
+          <CryptoIcon />
+        </ListItemIcon>
+        { open ? 
+          <ListItemText>
+            <Typography sx={{ font: '20px Aldrich', fontWeight: 'bold', color: '#F8F8FF', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', pt: 0.5, transform: hoverLink === "crypto" ? 'scale(1.05)' : null }}>
+              CRYPTO
+            </Typography>
+          </ListItemText>
+        : null }
+        <ExpandMore sx={{ color: '#F8F8FF', mt: 0.5 }} />
+      </ListItemButton>
+      <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.5' }} />
       <Stack direction="column" alignItems="center" justifyContent="center" spacing={0}>
-        <ListItemIcon sx={{ width: {xs: 200, md: 250} }}>
+        <ListItemIcon sx={{ width: {xs: 200, md: 225} }}>
           {open ? <GiddyIconSideBar /> : null}
         </ListItemIcon>
       </Stack>
       { isAuth ? userDash : guestDash }
       <ListItemButton alignItems='center' sx={{ mt: 'calc(10% + 60px)', position: 'fixed', bottom: 0, width: open ? drawerWidth : 65, borderTop: open ? '1px solid rgba(248, 248, 255, 0.5)' : null }}>
         <ListItemText>
-          <Typography align="center" sx={{ font: '20px Aldrich', fontWeight: 'bold', color: '#A8E4A0', lineHeight: '1.5', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', "&:hover": { color: '#A8E4A0' } }}>
+          <Typography align="center" sx={{ font: '20px Aldrich', fontWeight: 'bold', color: '#F8F8FF', lineHeight: '1.5', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', "&:hover": { color: '#A8E4A0' } }}>
             {open ? <Clock format={'hh:mm:ss A'} ticking={true} blinking={false} timezone={null} /> : null}
           </Typography>
         </ListItemText>

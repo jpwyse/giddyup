@@ -156,7 +156,7 @@ const ZeroDte = () => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   const [ticker, setTicker] = useState('SPY');
-  const [chartIndex, setChartIndex] = useState(0);
+  const [chartIndex, setChartIndex] = useState(2);
   const [activeChart, setActiveChart] = useState(null);
   const [data, setData] = useState(null);
   const [marketDate, setMarketDate] = useState(null);

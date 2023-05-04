@@ -91,7 +91,7 @@ const NavBar = ({open, toggleDrawer, smallScreen, ...props}) => {
   
   return (
     <React.Fragment>
-      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, background: 'linear-gradient(15deg, #2D3436 0%, #000000 74%);' }}>
+      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, background: '#2D3436' }}>
         <Toolbar sx={{ mt: 0.5, pr: 24 }}>
           <IconButton disabled={smallScreen} edge="start" onClick={toggleDrawer} sx={{ mr: 2, ml: -2.5 }}>             
             { open ? <MenuOpenIcon sx={{ color: '#8884D8', height: 35, width: 35, "&:hover": {transform: 'scale(1.1)'} }} /> : <MenuIcon sx={{ color: '#8884D8', height: 35, width: 35, "&:hover": {transform: 'scale(1.1)'} }} /> }

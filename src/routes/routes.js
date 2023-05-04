@@ -6,6 +6,7 @@ import ZeroDte from '../pages/ZeroDte';
 import CorrCov from '../pages/CorrCov';
 import Correlation from '../pages/Correlation';
 import Covariance from '../pages/Covariance';
+import Spread from '../pages/Spread';
 import Login from '../pages/Login';
 import SignUp from '../pages/SignUp';
 import Account from '../pages/Account';
@@ -26,6 +27,7 @@ const routes = () => [
           { path: 'corrcov', element: <CorrCov /> },
           { path: 'correlation', element: <Correlation /> },
           { path: 'covariance', element: <Covariance /> },
+          { path: 'spread', element: <Spread /> },
           { path: 'account', element: <Account /> },
         ],
       },

@@ -23,7 +23,7 @@ const CorrChart = ({ data, ticker1, ticker2, splitChart, ...props }) => {
 
   return (
     <React.Fragment>
-      <div style={{ height: splitChart ? '85%' : 850, background: '#1B1B1B', border: '3px solid #838996' }}>
+      <div style={{ height: splitChart ? '85%' : 850, background: '#2D3436', border: '3px solid #838996' }}>
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart syncId="syncId" data={data} margin={{ top: 15, right: 15, left: 25, bottom: 20 }}>
             <Legend verticalAlign="top" iconType='diamond' iconSize={0} height={40} wrapperStyle={{ lineHeight: '1.5' }} />
@@ -46,7 +46,7 @@ const CorrChart = ({ data, ticker1, ticker2, splitChart, ...props }) => {
         </ResponsiveContainer>
       </div>
       {splitChart ?
-        <div style={{ height: 350, marginTop: 15, background: '#1B1B1B', border: '3px solid #838996' }}>
+        <div style={{ height: 350, marginTop: 15, background: '#2D3436', border: '3px solid #838996' }}>
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart syncId="syncId" data={data} margin={{ top: 10, right: 55, left: 5, bottom: 20 }}>
               <defs>

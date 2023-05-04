@@ -19,7 +19,7 @@ const ZeroDteChart = ({ data, spotPrice, activeChart, contracts, chartXAxis, ...
 
   return (
     <React.Fragment>
-      <div style={{ height: '100%', marginLeft: 0, background: '#1B1B1B', border: '3px solid #838996' }}>
+      <div style={{ height: '100%', marginLeft: 0, background: '#2D3436', border: '3px solid #838996' }}>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} barSize={10} margin={{ top: 20, right: 25, left: config?.ml, bottom: 20 }}>
             <Legend verticalAlign="top" iconType='diamond' iconSize={0} height={40} wrapperStyle={{ lineHeight: '1.5', marginLeft: 40 }} />

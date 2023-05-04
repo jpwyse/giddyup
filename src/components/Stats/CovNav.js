@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -20,13 +20,25 @@ import Divider from '@mui/material/Divider';
 
 
 const CovNav = ({ ticker1, setTicker1, ticker2, setTicker2, period, setPeriod, window, setWindow, chartDisplay, setChartDisplay, splitChart, setSplitChart, ...props }) => {
-  
+  const [tickerError, setTickerError] = useState(null);
+
   const handleTicker = (event) => {
     if (event.target.name === 'ticker1') {
-      setTicker1(event.target.value);
-    } else {
-      setTicker2(event.target.value);
+      if (ticker2 === event.target.value) {
+        setTickerError(event.target.name);
+      } else {
+        setTickerError(null);
+        setTicker1(event.target.value);
+      }
     }
+    if (event.target.name === 'ticker2') {
+      if (ticker1 === event.target.value) {
+        setTickerError(event.target.name);
+      } else {
+        setTickerError(null);
+        setTicker2(event.target.value);
+      }
+    } 
   };
 
   const handlePeriod = (event) => {
@@ -36,7 +48,7 @@ const CovNav = ({ ticker1, setTicker1, ticker2, setTicker2, period, setPeriod, w
   const handleWindow = (event) => {
     setWindow(event.target.value);
   };
-
+  const windows = [...Array(31).keys()].slice(3);
 
   const handleChartDisplay = (event, line) => {
     if (chartDisplay.includes(line)) {
@@ -47,37 +59,50 @@ const CovNav = ({ ticker1, setTicker1, ticker2, setTicker2, period, setPeriod, w
     }
   };
 
-  const windows = [...Array(31).keys()].slice(3);
-
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: { xs: 'column', md: 'row' },  maxWidth: 1650, py: 2,  mx: "auto", justifyContent: 'space-evenly', alignItems: 'center',  zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: '#2D3436', boxShadow: 'rgba(245, 245, 245, 0.25) 0px 3px 8px;', border: '2px solid #838996'  }}>
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: { xs: 'column', md: 'row' },  maxWidth: 1680, height: 100, py: 1,  mx: "auto", justifyContent: 'space-evenly', alignItems: 'center',  zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: '#2D3436', boxShadow: 'rgba(245, 245, 245, 0.25) 0px 3px 8px;', border: '2px solid #838996'  }}>
       <Typography noWrap sx={{ font: '36px Aldrich', fontWeight: 'bold', color: '#F8F8FF', textShadow: '2px 3px 4px rgba(245,245,245,0.5)', ml: -2, mt: 0.25 }} >
-        Covariance
+        Covariance (Inv.)
       </Typography>
       <Divider orientation="vertical" variant="middle" flexItem sx={{ bgcolor: '#F8F8FF' }} />      
       <FormControl margin='none' sx={{ minWidth: 120 }} size="small">
         <Stack direction='column' alignItems='flex-start' justifyContent='flex-start' spacing={0} sx={{ mt: -1, mx: -2 }}>
-          <FormHelperText sx={{ font: '13px Aldrich', fontWeight: 'bold', color: '#F8F8FF', ml: 0, pb: 1  }}>Select Ticker #1</FormHelperText>
-          <Select name="ticker1" value={ticker1} onChange={handleTicker} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#82CA9D', width: 150, height: 50, pt: 1, border: '1px solid #82CA9D', '.MuiSelect-iconOutlined': {color: '#82CA9D'} }} >
+          <FormHelperText sx={{ font: '13px Aldrich', fontWeight: 'bold', color: '#F8F8FF', ml: 0, pb: tickerError === 'ticker1' ? 0 : 1  }}>Select Ticker #1</FormHelperText>
+          <Select name="ticker1" value={tickerError === 'ticker1' ? '' : ticker1} onChange={handleTicker} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#82CA9D', width: 150, height: 50, pt: 1, border: '1px solid #82CA9D', '.MuiSelect-iconOutlined': {color: '#82CA9D'} }} >
             <MenuItem value={'SPY'} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#82CA9D' }}>
               SPY
             </MenuItem>
             <MenuItem value={'QQQ'} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#82CA9D' }}>
               QQQ
             </MenuItem>
+            <MenuItem value={'^VIX'} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#82CA9D' }}>
+              ^VIX
+            </MenuItem>
           </Select>
+          {tickerError === 'ticker1' ?
+            <FormHelperText error={tickerError === 'ticker1'} sx={{ font: '14px Aldrich', fontWeight: 'bold', color: '#F8F8FF', ml: 0, mb: -1  }}>Error. Ticker1 ≠ Ticker2.</FormHelperText>
+          : null }
         </Stack>
       </FormControl>
       <Divider orientation="vertical" variant="middle" flexItem sx={{ bgcolor: '#F8F8FF' }} />   
       <FormControl margin='none' sx={{ minWidth: 120 }} size="small">
         <Stack direction='column' alignItems='flex-start' justifyContent='flex-start' spacing={0} sx={{ mt: -1, mx: -2 }}>
-          <FormHelperText sx={{ font: '13px Aldrich', fontWeight: 'bold', color: '#F8F8FF', ml: 0, pb: 1  }}>Select Ticker #2</FormHelperText>
-          <Select name="ticker2" value={ticker2} onChange={handleTicker} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#FF6961', width: 150, height: 50, pt: 1, border: '1px solid #FF6961', '.MuiSelect-iconOutlined': {color: '#FF6961'} }} >
+          <FormHelperText sx={{ font: '13px Aldrich', fontWeight: 'bold', color: '#F8F8FF', ml: 0, pb: tickerError === 'ticker2' ? 0 : 1  }}>Select Ticker #2</FormHelperText>
+          <Select name="ticker2" value={tickerError === 'ticker2' ? '' : ticker2} onChange={handleTicker} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#FF6961', width: 150, height: 50, pt: 1, border: '1px solid #FF6961', '.MuiSelect-iconOutlined': {color: '#FF6961'} }} >
             <MenuItem value={'^VIX'} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#FF6961' }}>
               ^VIX
             </MenuItem>
+            <MenuItem value={'SPY'} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#FF6961' }}>
+              SPY
+            </MenuItem>
+            <MenuItem value={'QQQ'} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#FF6961' }}>
+              QQQ
+            </MenuItem>
           </Select>
         </Stack>
+        {tickerError === 'ticker2' ?
+          <FormHelperText error={tickerError === 'ticker2'} sx={{ font: '14px Aldrich', fontWeight: 'bold', color: '#F8F8FF', ml: -2, mb: -1  }}>Error. Ticker2 ≠ Ticker1.</FormHelperText>
+        : null }
       </FormControl>
       <Divider orientation="vertical" variant="middle" flexItem sx={{ bgcolor: '#F8F8FF' }} />
       <FormControl margin='none' sx={{ minWidth: 120 }} size="small">
