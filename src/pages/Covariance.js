@@ -93,6 +93,7 @@ const Covariance = () => {
       <DialogTitle sx={{ bgcolor: '#2D3436' }}>{dataMsg}</DialogTitle>
       <DialogActions sx={{ bgcolor: '#2D3436' }}>
         <Button 
+          size="medium"
           variant="contained" 
           onClick={() => navigate("/login")}
           sx={{  
@@ -106,6 +107,7 @@ const Covariance = () => {
             boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;',
             mr: 1.5,
             pt: 1,
+            pb: 1,
             '&:hover': { 
               fontWeight: 'bold',
               color: '#D0F0C0', 
@@ -118,7 +120,8 @@ const Covariance = () => {
         >
           Login
         </Button>
-        <Button 
+        <Button
+          size="medium"
           variant="contained" 
           onClick={() => navigate("/signup")}
           sx={{  
@@ -132,6 +135,7 @@ const Covariance = () => {
             boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;',
             mr: 1.5,
             pt: 1,
+            pb: 1,
             '&:hover': { 
               fontWeight: 'bold',
               color: '#D0F0C0', 
@@ -144,7 +148,8 @@ const Covariance = () => {
         >
           SignUp
         </Button>
-        <Button 
+        <Button
+          size="medium"
           variant="contained" 
           onClick={handleDataAlert} 
           sx={{  

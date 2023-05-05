@@ -231,7 +231,8 @@ const ZeroDte = () => {
     <Dialog open={dataAlert} onClose={handleDataAlert}>
       <DialogTitle sx={{ bgcolor: '#2D3436' }}>{dataMsg}</DialogTitle>
       <DialogActions sx={{ bgcolor: '#2D3436' }}>
-        <Button 
+        <Button
+          size="medium"
           variant="contained" 
           onClick={() => navigate("/login")}
           sx={{  
@@ -239,12 +240,12 @@ const ZeroDte = () => {
             fontWeight: 'bold',
             color: '#A8E4A0',
             textShadow: '2px 3px 4px rgba(0,0,0,0.3)',
-            height: '40px',
             background: 'none',
             border: '3px solid #A8E4A0',
             boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;',
             mr: 1.5,
             pt: 1,
+            pb: 1,
             '&:hover': { 
               fontWeight: 'bold',
               color: '#D0F0C0', 
@@ -257,7 +258,8 @@ const ZeroDte = () => {
         >
           Login
         </Button>
-        <Button 
+        <Button
+          size="medium"
           variant="contained" 
           onClick={() => navigate("/signup")}
           sx={{  
@@ -265,12 +267,12 @@ const ZeroDte = () => {
             fontWeight: 'bold',
             color: '#8884D8',
             textShadow: '2px 3px 4px rgba(0,0,0,0.3)',
-            height: '40px',
             background: 'none',
             border: '3px solid #8884D8',
             boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;',
             mr: 1.5,
             pt: 1,
+            pb: 1,
             '&:hover': { 
               fontWeight: 'bold',
               color: '#D0F0C0', 
@@ -283,15 +285,15 @@ const ZeroDte = () => {
         >
           SignUp
         </Button>
-        <Button 
+        <Button
+          size="medium"
           variant="contained" 
           onClick={handleDataAlert} 
           sx={{  
             font: '20px Aldrich',
             fontWeight: 'bold',
-            color: '#d3d3d3',
+            color: '#D3D3D3',
             textShadow: '2px 3px 4px rgba(0,0,0,0.3)',
-            height: '40px',
             background: 'none',
             border: '3px solid #d3d3d3',
             boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;',
