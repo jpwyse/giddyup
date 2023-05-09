@@ -48,7 +48,6 @@ const Spread = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
       try {
         const response = await api.get("api/volatility/spread", {
           params: {
@@ -87,10 +86,11 @@ const Spread = () => {
         });
       }
     };
+    setLoading(true);
     setTimeout(() => {
       fetchData();
-    }, 1000);
-  }, [period, tickers]);
+    }, 800);
+  }, [tickers, period]);
 
 
   const renderPage = () => {
@@ -150,6 +150,7 @@ const Spread = () => {
             <Grid item xs={12}>
               <SpreadNav
                 period={period}
+                setPeriod={setPeriod}
                 tickers={tickers}
                 setTickers={setTickers}
                 priceTicker={priceTicker}

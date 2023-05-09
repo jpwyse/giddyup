@@ -36,13 +36,13 @@ const SpreadChart = ({ data, quant10th, quant25th, quant50th, quant75th, quant90
             <YAxis yAxisId="right" orientation="right" type="number" tickCount={10} tickMargin={6} tickSize={4} tick={{ stroke: '#F8F8FF',  strokeWidth: 1.5 }} tickLine={{ stroke: '#F8F8FF', strokeWidth: 1.5 }} label={{ value: "PRICE", position: 'right', angle: 90, offset: -5 }} />
             <Line yAxisId="left" name="VOLATILITY L/S SPREAD SUM" dataKey="Sum" type="monotone" stroke="#82CA9D" dot={false} />
             <Line yAxisId="right" name={priceTicker} dataKey={priceTicker} type="monotone" stroke="#FF6961" dot={false} />
-            <ReferenceLine yAxisId="left" y={quant10th} label="Spread 10th %" strokeDasharray="2" stroke="#FFDEAD" alwaysShow />
-            <ReferenceLine yAxisId="left" y={quant25th} label="Spread 25th %" strokeDasharray="2" stroke="#FFDEAD" alwaysShow />
-            <ReferenceLine yAxisId="left" y={quant50th} label="Spread 50th %" strokeDasharray="2" stroke="#FFDEAD" alwaysShow />
-            <ReferenceLine yAxisId="left" y={quant75th} label="Spread 75th %" strokeDasharray="2" stroke="#FFDEAD" alwaysShow />
-            <ReferenceLine yAxisId="left" y={quant90th} label="Spread 90th %" strokeDasharray="2" stroke="#FFDEAD" alwaysShow />
-            <ReferenceLine yAxisId="left" y={quant95th} label="Spread 95th %" strokeDasharray="2" stroke="#FFDEAD" alwaysShow />
-            <ReferenceLine yAxisId="left" y={quant99th} label="Spread 99th %" strokeDasharray="2" stroke="#FFDEAD" alwaysShow />
+            <ReferenceLine yAxisId="left" y={quant10th} label="Spread 10th %" strokeDasharray="0" stroke="#FFDEAD" alwaysShow />
+            <ReferenceLine yAxisId="left" y={quant25th} label="Spread 25th %" strokeDasharray="0" stroke="#FFDEAD" alwaysShow />
+            <ReferenceLine yAxisId="left" y={quant50th} label="Spread 50th %" strokeDasharray="0" stroke="#FFDEAD" alwaysShow />
+            <ReferenceLine yAxisId="left" y={quant75th} label="Spread 75th %" strokeDasharray="0" stroke="#FFDEAD" alwaysShow />
+            <ReferenceLine yAxisId="left" y={quant90th} label="Spread 90th %" strokeDasharray="0" stroke="#FFDEAD" alwaysShow />
+            <ReferenceLine yAxisId="left" y={quant95th} label="Spread 95th %" strokeDasharray="0" stroke="#FFDEAD" alwaysShow />
+            <ReferenceLine yAxisId="left" y={quant99th} label="Spread 99th %" strokeDasharray="0" stroke="#FFDEAD" alwaysShow />
             <Brush dataKey="Date" travellerWidth={10} height={45} stroke="#414A4C" fill="#F2F3F4" />
           </LineChart>
         </ResponsiveContainer>

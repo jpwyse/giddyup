@@ -19,14 +19,16 @@ import Select from '@mui/material/Select';
 import Divider from '@mui/material/Divider';
 
 
-const SpreadNav = ({  period, setPeriod, tickers, setTickers, priceTicker, setPriceTicker, ...props }) => {
+const SpreadNav = ({ period, setPeriod, tickers, setTickers, priceTicker, setPriceTicker, ...props }) => {
+
+  console.log(period);
 
   const handlePeriod = (event) => {
+    console.log(event.target.value);
     setPeriod(event.target.value);
   };
 
   const handleTickers = (event, ticker) => {
-    console.log(ticker);
     if (tickers.includes(ticker)) {
       let newTickers = tickers.filter(items => items !== ticker);
       setTickers(newTickers);
@@ -44,7 +46,7 @@ const SpreadNav = ({  period, setPeriod, tickers, setTickers, priceTicker, setPr
 
 
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: { sm: 'column', md: 'row' },  maxWidth: 1850, height: { md: 100 }, py: 1, mx: "auto", justifyContent: 'space-evenly', alignItems: 'center',  zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: '#2D3436', boxShadow: 'rgba(245, 245, 245, 0.25) 0px 3px 8px;', border: '2px solid #838996'  }}>
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: { sm: 'column', md: 'row' }, maxWidth: 1800, height: { md: 100 }, py: 1, mx: "auto", justifyContent: 'space-evenly', alignItems: 'center',  zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: '#2D3436', boxShadow: 'rgba(245, 245, 245, 0.25) 0px 3px 8px;', border: '2px solid #838996'  }}>
       <Typography noWrap sx={{ font: '36px Aldrich', fontWeight: 'bold', color: '#F8F8FF', textShadow: '2px 3px 4px rgba(245,245,245,0.5)', ml: -2, mt: 0.25 }} >
          L/S Spread
       </Typography>
@@ -115,22 +117,6 @@ const SpreadNav = ({  period, setPeriod, tickers, setTickers, priceTicker, setPr
               />
             }
             label={vixLabel}
-            sx={{ ml: 0.5, mr: 1.5 }}
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={tickers.includes('VXX')}
-                onChange={(event) => handleTickers(event, 'VXX')}
-                sx={{
-                  color: '#82CA9D',
-                  '&.Mui-checked': {
-                    color: '#82CA9D',
-                  },
-                }}
-              />
-            }
-            label={vxxLabel}
             sx={{ ml: 0.5, mr: 1.5 }}
           />
           <FormControlLabel
@@ -231,26 +217,6 @@ const SpreadNav = ({  period, setPeriod, tickers, setTickers, priceTicker, setPr
               />
             }
             label={vixPriceLabel}
-            sx={{ ml: 0.5, mr: 1.5 }}
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                disabled={!tickers.includes('VXX')}
-                checked={priceTicker === 'VXX'}
-                onChange={(event) => handlePriceTicker(event, 'VXX')}
-                sx={{
-                  color: '#FF6961',
-                  '&.Mui-checked': {
-                    color: '#FF6961',
-                  },
-                  '&.Mui-disabled': {
-                    color: '#696969',
-                  },
-                }}
-              />
-            }
-            label={vxxPriceLabel}
             sx={{ ml: 0.5, mr: 1.5 }}
           />
           <FormControlLabel

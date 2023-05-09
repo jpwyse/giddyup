@@ -186,7 +186,7 @@ const SideBar = ({open, setOpen, setLogoutAlert, drawerWidth, ...props}) => {
         <List component="div" disablePadding sx={{ bgcolor: selected === "zerodte" ? '#1B1B1B' : null, transform: hoverLink === 'zerodte' ? 'scale(1.02)' : null }}>
           <Tooltip disableHoverListener={open} disableFocusListener disableTouchListener title={zeroTip} placement="right" arrow>
             <ListItemButton selected={selected === 'zerodte'} onClick={() => navigate("../dashboard/zerodte")} onMouseOver={() => setHoverLink("zerodte")} onMouseLeave={() => setHoverLink(null)} sx={{ pl: open ? 2 : 1.5 }}>
-              <ListItemIcon sx={{ opacity: open ? 1 : '0.65' }}>
+              <ListItemIcon sx={{ opacity: open ? 1 : 0.95 }}>
                 {selected === 'zerodte' || hoverLink === 'zerodte' ? <ZeroDteIconActive /> : <ZeroDteIcon /> }
               </ListItemIcon>
               <ListItemText>
@@ -219,7 +219,7 @@ const SideBar = ({open, setOpen, setLogoutAlert, drawerWidth, ...props}) => {
         <List component="div" disablePadding  sx={{ bgcolor: selected === "correlation" ? '#1B1B1B' : null, transform: hoverLink === 'correlation' ? 'scale(1.02)' : null }}>
           <Tooltip disableHoverListener={open} disableFocusListener disableTouchListener title={corrTip} placement="right" arrow>
             <ListItemButton selected={selected === 'correlation'} onClick={() => navigate("../dashboard/correlation")} onMouseOver={() => setHoverLink("correlation")} onMouseLeave={() => setHoverLink(null)} sx={{ pl: open ? 2 : 1.5 }}>
-              <ListItemIcon sx={{ opacity: open ? 1 : '0.65' }}>
+              <ListItemIcon sx={{ opacity: open ? 1 : 0.95 }}>
                 {selected === 'correlation' || hoverLink === 'correlation' ? <CorrIconActive /> : <CorrIcon /> }
               </ListItemIcon>
               <ListItemText>
@@ -232,7 +232,7 @@ const SideBar = ({open, setOpen, setLogoutAlert, drawerWidth, ...props}) => {
           <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.25' }} />
           <Tooltip disableHoverListener={open} disableFocusListener disableTouchListener title={covTip} placement="right" arrow>
             <ListItemButton selected={selected === 'covariance'} onClick={() => navigate("../dashboard/covariance")} onMouseOver={() => setHoverLink("covariance")} onMouseLeave={() => setHoverLink(null)} sx={{ pl: open ? 2 : 1.5 }}>
-              <ListItemIcon sx={{ opacity: open ? 1 : '0.65' }}>
+              <ListItemIcon sx={{ opacity: open ? 1 : 0.95 }}>
                 {selected === 'covariance' || hoverLink === 'covariance' ? <CovIconActive /> : <CovIcon /> }
               </ListItemIcon>
               <ListItemText>
@@ -265,7 +265,7 @@ const SideBar = ({open, setOpen, setLogoutAlert, drawerWidth, ...props}) => {
         <List component="div" disablePadding  sx={{ bgcolor: selected === "volspread" ? '#1B1B1B' : null, transform: hoverLink === 'volspread' ? 'scale(1.02)' : null }}>
           <Tooltip disableHoverListener={open} disableFocusListener disableTouchListener title={spreadTip} placement="right" arrow>
             <ListItemButton selected={selected === 'volspread'} onClick={() => navigate("../dashboard/spread")} onMouseOver={() => setHoverLink("volspread")} onMouseLeave={() => setHoverLink(null)} sx={{ pl: open ? 2 : 1.5 }}>
-              <ListItemIcon sx={{ ml: -0.5, opacity: open ? 1 : '0.65' }}>
+              <ListItemIcon sx={{ ml: -0.5, opacity: open ? 1 : 1 }}>
                 {selected === 'volspread' || hoverLink === 'volspread' ? <VolSpreadIconActive /> : <VolSpreadIcon /> }
               </ListItemIcon>
               <ListItemText>
@@ -281,7 +281,7 @@ const SideBar = ({open, setOpen, setLogoutAlert, drawerWidth, ...props}) => {
       <Tooltip disableFocusListener disableTouchListener title={comingSoonTip} placement="right" arrow>
         <span>
           <ListItemButton disabled onClick={handleExpanded}>
-            <ListItemIcon sx={{ ml: -1.25, transform: hoverLink === "crypto" ? 'scale(1.05)' : null }}>
+            <ListItemIcon sx={{ ml: -1.25, transform: hoverLink === "crypto" ? 'scale(1.05)' : null, opacity: 0.75 }}>
               <CryptoIcon />
             </ListItemIcon>
             { open ? 
