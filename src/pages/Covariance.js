@@ -258,7 +258,7 @@ const Covariance = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Box sx={{ height: '80%' }}>
+              <Box sx={{ height: splitChart ? "80%" : "90%" }}>
                 <CovChart 
                   data={data}
                   ticker1={ticker1} 
