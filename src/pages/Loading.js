@@ -24,7 +24,7 @@ const Loading = () => {
     <React.Fragment>
       <Container maxWidth="xl">
         <animated.div style={loadLogo}>
-          <Typography align='center' gutterBottom sx={{ mt: 10, ml: -10 }}>
+          <Typography align='center' gutterBottom sx={{ mt: 15, ml: -10 }}>
             <GiddyIconLoading sx={{  zIndex: 5, position: 'static' }} />
           </Typography>
         </animated.div>

@@ -27,8 +27,8 @@ const Covariance = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
-  const [ticker1, setTicker1] = useState('SPY');
-  const [ticker2, setTicker2] = useState('^VIX');
+  const [ticker1, setTicker1] = useState('^VIX');
+  const [ticker2, setTicker2] = useState('^VVIX');
   const [inverseStat, setInverseStat] = useState(true);
   const [period, setPeriod] = useState('2y');
   const [interval, setInterval] = useState('1d');
