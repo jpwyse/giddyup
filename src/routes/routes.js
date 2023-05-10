@@ -4,7 +4,6 @@ import MainLayout from '../layouts/MainLayout';
 import Home from '../pages/Home';
 import Dashboard from '../pages/Dashboard';
 import ZeroDte from '../pages/ZeroDte';
-import CorrCov from '../pages/CorrCov';
 import Correlation from '../pages/Correlation';
 import Covariance from '../pages/Covariance';
 import Spread from '../pages/Spread';
@@ -25,7 +24,6 @@ const routes = () => [
         element: <Dashboard />, 
         children : [
           { path: 'zerodte', element: <ZeroDte /> },
-          { path: 'corrcov', element: <CorrCov /> },
           { path: 'correlation', element: <Correlation /> },
           { path: 'covariance', element: <Covariance /> },
           { path: 'spread', element: <Spread /> },

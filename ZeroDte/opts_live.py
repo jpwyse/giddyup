@@ -74,7 +74,6 @@ class ZeroDteData(BarchartAPI):
 		self.options_fields = 'strikePrice,volume,openInterest,volumeOpenInterestRatio,volatility,optionType'
 		self.greeks_fields = 'strikePrice,theoretical,delta,gamma,rho,theta,vega,optionType,'
 
-		
 		self.derivs_params = {
 			'baseSymbol': self.symbol,
 			'fields': None,
@@ -91,10 +90,10 @@ class ZeroDteData(BarchartAPI):
 		
 		self.options_data = self.getDerivativesData(fields=self.options_fields, data_type='options')
 		self.greeks_data = self.getDerivativesData(fields=self.greeks_fields, data_type='greeks')
-		self.zero_dte_dataframe = pd.concat([self.options_data, self.greeks_data], axis=1)
+		self.derivatives_dataframe = pd.concat([self.options_data, self.greeks_data], axis=1)
 
-		self.call_dataframe = self.zero_dte_dataframe.loc[('Call', slice(None)), :]
-		self.put_dataframe = self.zero_dte_dataframe.loc[('Put', slice(None)), :]
+		self.call_dataframe = self.derivatives_dataframe.loc[('Call', slice(None)), :]
+		self.put_dataframe = self.derivatives_dataframe.loc[('Put', slice(None)), :]
 
 		self.calls_data = self.getChartData(dataframe=self.call_dataframe, contract='call')
 		self.puts_data = self.getChartData(dataframe=self.put_dataframe, contract='put')

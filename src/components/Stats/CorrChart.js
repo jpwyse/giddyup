@@ -19,7 +19,7 @@ import {
 } from "recharts";
 
 
-const CorrChart = ({ data, ticker1, ticker2, splitChart, ...props }) => {
+const CorrChart = ({ data, ticker1, ticker2, splitChart, inverseStat, ...props }) => {
 
   return (
     <React.Fragment>
@@ -39,7 +39,7 @@ const CorrChart = ({ data, ticker1, ticker2, splitChart, ...props }) => {
               <Line yAxisId={splitChart ? "right" : "left"} name={`${ticker2}`} dataKey={ticker2} type="monotone" stroke="#FF6961" dot={false} />
             : null}
             {!splitChart ?
-              <Area yAxisId="right" name="Correlation" dataKey="Correlation" type="monotone" stroke="#FFBF61" fillOpacity={0} fill="#FFBF61" />
+              <Area yAxisId="right" name={!inverseStat ? "Correlation" : "Correlation (Inverted)"} dataKey="Correlation" type="monotone" stroke="#FFBF61" fillOpacity={0} fill="#FFBF61" />
             : null}
             <Brush dataKey="Date" travellerWidth={10} height={45} stroke="#414A4C" fill="#F2F3F4" />
           </ComposedChart>
@@ -62,7 +62,7 @@ const CorrChart = ({ data, ticker1, ticker2, splitChart, ...props }) => {
                 <Label value="DATE" offset={15} position="insideBottom" />
               </XAxis>
               <YAxis yAxisId="left" orientation="left" tickMargin={6} tickSize={4} tick={{ stroke: '#F8F8FF',  strokeWidth: 1.5 }} tickLine={{ stroke: '#F8F8FF', strokeWidth: 1.5 }} />
-              <Area yAxisId="left" name="Correlation" dataKey="Correlation" type="monotone" stroke="#FFBF61" fillOpacity={0.5} fill="url(#colorPv)" />
+              <Area yAxisId="left" name={!inverseStat ? "Correlation" : "Correlation (Inverted)"} dataKey="Correlation" type="monotone" stroke="#FFBF61" fillOpacity={0.5} fill="url(#colorPv)" />
               <Brush dataKey="Date" travellerWidth={10} height={45} stroke="#414A4C" fill="#F5F5F5" />
             </AreaChart>
           </ResponsiveContainer>

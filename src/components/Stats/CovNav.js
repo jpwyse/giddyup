@@ -19,7 +19,7 @@ import Select from '@mui/material/Select';
 import Divider from '@mui/material/Divider';
 
 
-const CovNav = ({ ticker1, setTicker1, ticker2, setTicker2, period, setPeriod, window, setWindow, chartDisplay, setChartDisplay, splitChart, setSplitChart, ...props }) => {
+const CovNav = ({ ticker1, setTicker1, ticker2, setTicker2, period, setPeriod, window, setWindow, splitChart, setSplitChart, inverseStat, ...props }) => {
   const [tickerError, setTickerError] = useState(null);
 
   const handleTicker = (event) => {
@@ -50,20 +50,17 @@ const CovNav = ({ ticker1, setTicker1, ticker2, setTicker2, period, setPeriod, w
   };
   const windows = [...Array(31).keys()].slice(3);
 
-  const handleChartDisplay = (event, line) => {
-    if (chartDisplay.includes(line)) {
-      let newDisplay = chartDisplay.filter(items => items !== line);
-      setChartDisplay(newDisplay);
-    } else {
-      setChartDisplay(chartDisplay => [...chartDisplay, line]);
-    }
-  };
-
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: { xs: 'column', md: 'row' }, maxWidth: 1680, height: { md: 100 }, py: 1, mx: "auto", justifyContent: 'space-evenly', alignItems: 'center',  zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: '#2D3436', boxShadow: 'rgba(245, 245, 245, 0.25) 0px 3px 8px;', border: '2px solid #838996'  }}>
-      <Typography noWrap sx={{ font: '36px Aldrich', fontWeight: 'bold', color: '#F8F8FF', textShadow: '2px 3px 4px rgba(245,245,245,0.5)', ml: -2, mt: 0.25 }} >
-        Covariance
-      </Typography>
+      {!inverseStat ?
+        <Typography sx={{ font: '36px Aldrich', fontWeight: 'bold', color: '#F8F8FF', textShadow: '2px 3px 4px rgba(245,245,245,0.5)', ml: -2, mt: 0.25 }} >
+          Covariance
+        </Typography>
+      : 
+        <Typography sx={{ font: '36px Aldrich', fontWeight: 'bold', color: '#F8F8FF', textShadow: '2px 3px 4px rgba(245,245,245,0.5)', ml: -2, mt: 0.25 }} >
+          Covariance <i>(Inv.)</i>
+        </Typography>
+      }
       <Divider orientation="vertical" variant="middle" flexItem sx={{ bgcolor: '#F8F8FF' }} />      
       <FormControl margin='none' sx={{ minWidth: 120 }} size="small">
         <Stack direction='column' alignItems='flex-start' justifyContent='flex-start' spacing={0} sx={{ mt: -1, mx: -2 }}>
@@ -71,6 +68,21 @@ const CovNav = ({ ticker1, setTicker1, ticker2, setTicker2, period, setPeriod, w
           <Select name="ticker1" value={tickerError === 'ticker1' ? '' : ticker1} onChange={handleTicker} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#82CA9D', width: 150, height: 50, pt: 1, border: '1px solid #82CA9D', '.MuiSelect-iconOutlined': {color: '#82CA9D'} }} >
             <MenuItem value={'SPY'} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#82CA9D' }}>
               SPY
+            </MenuItem>
+            <MenuItem value={'SVXY'} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#82CA9D' }}>
+              SVXY
+            </MenuItem>
+            <MenuItem value={'VXX'} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#82CA9D' }}>
+              VXX
+            </MenuItem>
+            <MenuItem value={'UVXY'} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#82CA9D' }}>
+              UVXY
+            </MenuItem>
+            <MenuItem value={'VXZ'} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#82CA9D' }}>
+              VXZ
+            </MenuItem>
+            <MenuItem value={'^VVIX'} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#82CA9D' }}>
+              ^VVIX
             </MenuItem>
             <MenuItem value={'QQQ'} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#82CA9D' }}>
               QQQ
@@ -94,6 +106,21 @@ const CovNav = ({ ticker1, setTicker1, ticker2, setTicker2, period, setPeriod, w
             </MenuItem>
             <MenuItem value={'SPY'} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#FF6961' }}>
               SPY
+            </MenuItem>
+            <MenuItem value={'SVXY'} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#FF6961' }}>
+              SVXY
+            </MenuItem>
+            <MenuItem value={'VXX'} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#FF6961' }}>
+              VXX
+            </MenuItem>
+            <MenuItem value={'UVXY'} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#FF6961' }}>
+              UVXY
+            </MenuItem>
+            <MenuItem value={'VXZ'} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#FF6961' }}>
+              VXZ
+            </MenuItem>
+            <MenuItem value={'^VVIX'} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#FF6961' }}>
+              ^VVIX
             </MenuItem>
             <MenuItem value={'QQQ'} sx={{ font: '26px vt323', fontWeight: 'bold', color: '#FF6961' }}>
               QQQ

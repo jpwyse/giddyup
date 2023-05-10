@@ -9,9 +9,10 @@ router = Router()
 
 
 @router.get("/get/")
-def get_corrcov(request, auth: bool = False, ticker1: str = 'SPY', ticker2: str = '^VIX', period: str = '1y', interval: str = '1d', window: int = 4):
+def get_corrcov(request, auth: bool = False, ticker1: str = 'SPY', ticker2: str = '^VIX', inverse : bool = False, period: str = '1y', interval: str = '1d', window: int = 4):
+	
 	try:
-		corrcov = CorrCov(ticker1=ticker1, ticker2=ticker2, period=period, interval=interval, window=window)
+		corrcov = CorrCov(ticker1=ticker1, ticker2=ticker2, inverse=inverse, period=period, interval=interval, window=window)
 		df = corrcov.data
 		if auth:
 			data = df.to_dict(orient='index')

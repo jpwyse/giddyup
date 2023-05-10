@@ -29,6 +29,7 @@ const Covariance = () => {
   const [loading, setLoading] = useState(false);
   const [ticker1, setTicker1] = useState('SPY');
   const [ticker2, setTicker2] = useState('^VIX');
+  const [inverseStat, setInverseStat] = useState(true);
   const [period, setPeriod] = useState('2y');
   const [interval, setInterval] = useState('1d');
   const [window, setWindow] = useState(3);
@@ -36,7 +37,6 @@ const Covariance = () => {
   const [data, setData] = useState(null);
   const [dataError, setDataError] = useState(false);
   const [dataAlert, setDataAlert] = useState(false);
-  const [marketClosed, setMarketClosed] = useState(false);
   const dataAlertDone = useRef(false);
 
   
@@ -48,20 +48,16 @@ const Covariance = () => {
             auth: isAuth,
             ticker1: ticker1,
             ticker2: ticker2,
+            inverse: inverseStat,
             period: period,
             interval: interval,
             window: window,
           },
         });
-        if (!response.data){
+        setData(Object.values(response.data.data));
+        setTimeout(() => {
           setLoading(false);
-          setMarketClosed(true);
-        } else {
-          setData(Object.values(response.data.data));
-          setTimeout(() => {
-            setLoading(false);
-          }, 1000);
-        }
+        }, 1000);
         if (!user && !dataAlertDone.current) {
           setDataAlert(true);
         }
@@ -80,6 +76,17 @@ const Covariance = () => {
       }
     }, 1000);
   }, [ticker1, ticker2, period, interval, window, dataError]);
+
+
+  const handleInverseStat = useMemo(() => {
+    if (shortTickers.includes(ticker1) && shortTickers.includes(ticker2)) {
+      setInverseStat(false);
+    } else if (longTickers.includes(ticker1) && longTickers.includes(ticker2)) {
+      setInverseStat(false)
+    } else {
+      setInverseStat(true);
+    }
+  }, [ticker1, ticker2]);
 
 
   const handleDataAlert = () => {
@@ -247,25 +254,19 @@ const Covariance = () => {
                 setWindow={setWindow}
                 splitChart={splitChart}
                 setSplitChart={setSplitChart}
+                inverseStat={inverseStat}
               />
             </Grid>
             <Grid item xs={12}>
-              { !marketClosed ?
-                <Box sx={{ height: '80%' }}>
-                  <CovChart 
-                    data={data}
-                    ticker1={ticker1} 
-                    ticker2={ticker2}
-                    splitChart={splitChart}
-                  />
-                </Box>
-              : 
-                <Stack direction="column" alignItems="center" justifyContent="center">
-                  <Typography align="center" sx={{ font: '108px Aldrich', fontWeight: 'bold', color: '#8884D8', textShadow: '2px 4px 4px rgba(245,245,245,0.5)', mt: 15, width: '75%' }}>
-                    U.S. financial markets are currently closed. Go touch some grass.
-                  </Typography>
-                </Stack>
-              }
+              <Box sx={{ height: '80%' }}>
+                <CovChart 
+                  data={data}
+                  ticker1={ticker1} 
+                  ticker2={ticker2}
+                  splitChart={splitChart}
+                  inverseStat={inverseStat}
+                />
+              </Box>
             </Grid>
           </Grid>
         </React.Fragment>
@@ -282,6 +283,8 @@ const Covariance = () => {
 
 export default Covariance;
 
+const shortTickers = ["SPY", "SVXY", "QQQ"];
+const longTickers = ["^VIX", "VXX", "UVXY", "VXX", "VXZ", "^VVIX"];
 
 const dataMsg = (
   <React.Fragment>

@@ -13,9 +13,10 @@ import yfinance as yf
 
 class CorrCov():
 
-	def __init__(self, ticker1, ticker2, period='1y', interval='1d', window=4):
+	def __init__(self, ticker1, ticker2, inverse=False, period='1y', interval='1d', window=4):
 		self.ticker1 = ticker1
 		self.ticker2 = ticker2
+		self.inverse = inverse
 		self.period = period
 		self.interval = interval
 		self.window = window
@@ -33,17 +34,19 @@ class CorrCov():
 		df = df.drop(columns=['level_1'])
 		df['Date'] = df['Date'].dt.date
 		df = df.set_index(['Date'])
-		df['Correlation'] = (df[self.ticker1].rolling(window=window).corr(df[self.ticker2], pairwise=True))
-		df['Covariance'] = df[self.ticker1].rolling(window=window).cov(df[self.ticker2], pairwise=True) * -1
-		df[f"{self.ticker1}PctChange"] = df[self.ticker1].pct_change().mul(100)
-		df[f"{self.ticker2}PctChange"] = df[self.ticker2].pct_change().mul(100)
+
+		if self.inverse:
+			df['Correlation'] = (df[self.ticker1].rolling(window=window).corr(df[self.ticker2], pairwise=True)) * -1
+			df['Covariance'] = df[self.ticker1].rolling(window=window).cov(df[self.ticker2], pairwise=True) * -1
+		else:
+			df['Correlation'] = (df[self.ticker1].rolling(window=window).corr(df[self.ticker2], pairwise=True))
+			df['Covariance'] = df[self.ticker1].rolling(window=window).cov(df[self.ticker2], pairwise=True)
 		
 		objs = df.select_dtypes(object).columns
 		df[objs] = df[objs].apply(pd.to_numeric, errors='coerce')
 		df = df.fillna(0)
 		df = df.round(5)
-		#df.columns = df.columns.str.replace("^", "")
 		df = df.reset_index()
-
+		
 		return df
 
