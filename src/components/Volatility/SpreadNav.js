@@ -21,8 +21,6 @@ import Divider from '@mui/material/Divider';
 
 const SpreadNav = ({ period, setPeriod, tickers, setTickers, priceTicker, setPriceTicker, ...props }) => {
 
-  console.log(period);
-
   const handlePeriod = (event) => {
     console.log(event.target.value);
     setPeriod(event.target.value);
@@ -43,12 +41,10 @@ const SpreadNav = ({ period, setPeriod, tickers, setTickers, priceTicker, setPri
    }
   };
 
-
-
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: { sm: 'column', md: 'row' }, maxWidth: 1800, height: { md: 100 }, py: 1, mx: "auto", justifyContent: 'space-evenly', alignItems: 'center',  zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: '#2D3436', boxShadow: 'rgba(245, 245, 245, 0.25) 0px 3px 8px;', border: '2px solid #838996'  }}>
       <Typography noWrap sx={{ font: '36px Aldrich', fontWeight: 'bold', color: '#F8F8FF', textShadow: '2px 3px 4px rgba(245,245,245,0.5)', ml: -2, mt: 0.25 }} >
-         L/S Spread
+         Vol ETF Spread
       </Typography>
       <Divider orientation="vertical" variant="middle" flexItem sx={{ bgcolor: '#F8F8FF' }} />
       <FormControl margin='none' sx={{ minWidth: 120 }} size="small">
@@ -262,7 +258,7 @@ const SpreadNav = ({ period, setPeriod, tickers, setTickers, priceTicker, setPri
           <FormControlLabel
             control={
               <Checkbox
-                disabled={!tickers.includes('VVIX')}
+                disabled={!tickers.includes('^VVIX')}
                 checked={priceTicker === '^VVIX'}
                 onChange={(event) => handlePriceTicker(event, '^VVIX')}
                 sx={{

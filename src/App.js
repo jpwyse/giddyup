@@ -4,8 +4,12 @@ import { useRoutes, useNavigate, useLocation } from "react-router-dom";
 import { SnackbarProvider } from 'notistack';
 import { authenticate } from './redux/actions/auth';
 import { ErrorBoundary } from 'react-error-boundary';
+import ReactGA from 'react-ga';
 import ErrorMsg from './segments/ErrorMsg';
 import routes from './routes/routes';
+
+const TRACKING_ID = "UA-271129374-1";
+ReactGA.initialize(TRACKING_ID);
 
 const App = () => {
   const isAuth = useSelector(state => state.auth.isAuth);
@@ -22,6 +26,10 @@ const App = () => {
 
   useEffect(() => {
     dispatch(authenticate());
+  }, []);
+
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
 
   return (

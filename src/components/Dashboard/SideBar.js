@@ -270,7 +270,7 @@ const SideBar = ({open, setOpen, setLogoutAlert, drawerWidth, ...props}) => {
               </ListItemIcon>
               <ListItemText>
                 <Typography hidden={!open} sx={{ font: '18px Aldrich', fontWeight: 'bold', color: selected === 'volspread' || hoverLink === 'volspread' ? '#8884D8' : '#F8F8FF', textShadow: '2px 3px 5px rgba(0,0,0,0.5)', transform: hoverLink === 'corrcov' ?'scale(1.05)' : null, ml: -0.5 }}>
-                  L/S Spread
+                  L/S ETF Spread
                 </Typography>
               </ListItemText>
             </ListItemButton>
@@ -353,7 +353,7 @@ const volTip = (
 
 const spreadTip = (
   <Typography sx={{ font: '19px Aldrich', fontWeight: 'bold', color: '#A8E4A0', p: 1 }}>
-    Volatility L/S Spread
+    Volatility ETF Spread
   </Typography>
 );
 
