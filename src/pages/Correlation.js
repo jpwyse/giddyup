@@ -103,7 +103,7 @@ const Correlation = () => {
         <Button
           size="medium"
           variant="contained" 
-          onClick={() => navigate("/login")}
+          onClick={() => navigate("/site/login")}
           sx={{  
             font: '20px Aldrich',
             fontWeight: 'bold',
@@ -130,7 +130,7 @@ const Correlation = () => {
         <Button
           size="medium"
           variant="contained" 
-          onClick={() => navigate("/signup")}
+          onClick={() => navigate("/site/signup")}
           sx={{  
             font: '20px Aldrich',
             fontWeight: 'bold',
