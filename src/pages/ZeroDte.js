@@ -191,7 +191,7 @@ const ZeroDte = () => {
           setDataAlert(true);
         }
       } catch (error) {
-        console.log('error', error.response);
+        console.log('error', error);
         setDataError(true);
         setLoading(false);
       }
