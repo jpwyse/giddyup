@@ -184,6 +184,7 @@ const Dashboard = () => {
           Yes
         </Button>
         <Button 
+          size="large"
           variant="contained" 
           onClick={() => setLogoutAlert(false)} 
           sx={{  
