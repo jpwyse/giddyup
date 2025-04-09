@@ -246,7 +246,7 @@ const SideBar = ({open, setOpen, setLogoutAlert, drawerWidth, ...props}) => {
       </Collapse>
       <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.5' }} />
       <Tooltip disableHoverListener={open} disableFocusListener disableTouchListener title={volTip} placement="right" arrow>
-        <ListItemButton onClick={handleExpanded}>
+        <ListItemButton disabled onClick={handleExpanded}>
           <ListItemIcon sx={{ ml: open ? -1 : -0.75 }}>
             <VolatilityIcon />
           </ListItemIcon>
@@ -261,7 +261,7 @@ const SideBar = ({open, setOpen, setLogoutAlert, drawerWidth, ...props}) => {
         </ListItemButton>
       </Tooltip>
       <Divider sx={{ bgcolor: '#F8F8FF', opacity: '0.25' }} />
-      <Collapse in={true} timeout="auto" unmountOnExit>
+      <Collapse in={true} timeout="auto" unmountOnExit sx={{ display: { xs: 'none' } }}>
         <List component="div" disablePadding  sx={{ bgcolor: selected === "volspread" ? '#1B1B1B' : null, transform: hoverLink === 'volspread' ? 'scale(1.02)' : null }}>
           <Tooltip disableHoverListener={open} disableFocusListener disableTouchListener title={spreadTip} placement="right" arrow>
             <ListItemButton selected={selected === 'volspread'} onClick={() => navigate("../dashboard/spread")} onMouseOver={() => setHoverLink("volspread")} onMouseLeave={() => setHoverLink(null)} sx={{ pl: open ? 2 : 1.5 }}>
