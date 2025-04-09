@@ -26,7 +26,13 @@ class CorrCov():
 
 
 	def getData(self, tickers, period, interval, window):
-		df = yf.download(tickers=tickers, period=period, interval=interval, group_by='ticker')
+		try:
+			print("fetching data")
+			df = yf.download(tickers=tickers, period=period, interval=interval, group_by='ticker')
+			print(df.head())
+		except Exception as e:
+			print(f"Error: {e}")
+
 		df = df.stack(level=1)
 		df = df.replace(',', '', regex=True)
 		df = df.loc[(slice(None), 'Adj Close'), tickers]

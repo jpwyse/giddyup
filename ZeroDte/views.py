@@ -132,12 +132,13 @@ class ZeroDteData(BarchartAPI):
 
 
 	def getSpotPrice(self, ticker):
-		ticker = yf.Ticker(ticker)
-		price = ticker.history(period='1d')
-		spot = price['Close'][0]
-		spot_price = spot.round(4)
-		return spot_price
-
+		try:
+			spot = yf.Ticker(ticker).history(period="1d")['Close'].iloc[-1]
+			spot = spot.round(4)
+			return spot
+		except Exception as e:
+			print(f"Error: {e}")
+			return None
 
 	def getFrontExpiration(self):
 		json = self.requestData(fields=self.options_fields)
